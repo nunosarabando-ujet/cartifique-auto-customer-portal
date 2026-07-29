@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="pt-PT" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cartifique Auto | Centros de Inspeção Técnica de Veículos</title>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#f0fdfa',
+                            100: '#ccfbf1',
+                            500: '#028090',
+                            600: '#026c7a',
+                            700: '#05668d',
+                        },
+                        secondary: {
+                            500: '#0f4c81',
+                            700: '#081c24',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.35s cubic-bezier(0, 1, 0, 1);
+        }
+        .faq-answer.open {
+            max-height: 1000px;
+            transition: max-height 0.5s ease-in-out;
+        }
+        .plate-input-mask {
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased selection:bg-teal-500 selection:text-white flex flex-col min-h-screen">
+
+    <!-- TOP ANNOUNCEMENT BAR -->
+    <div class="bg-slate-900 text-slate-300 text-xs py-2 px-4 border-b border-slate-800">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
+            <div class="flex items-center gap-2">
+                <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-teal-500/20 text-teal-400 font-semibold text-[11px]">
+                    <i data-lucide="shield-check" class="w-3.5 h-3.5"></i> CITV Oficial IMT
+                </span>
+                <span>Pode realizar a sua IPO nos 3 meses anteriores à data limite!</span>
+            </div>
+            <div class="flex items-center gap-4 text-slate-400 font-medium">
+                <a href="tel:800200300" class="hover:text-teal-400 transition-colors flex items-center gap-1">
+                    <i data-lucide="phone" class="w-3.5 h-3.5"></i> 800 200 300 (Gratuito)
+                </a>
+                <span>|</span>
+                <span class="flex items-center gap-1">
+                    <i data-lucide="clock" class="w-3.5 h-3.5"></i> Seg - Sáb: 08:00 - 20:00
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN NAVBAR -->
+    <nav class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-100 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- LOGO Cartifique Auto -->
+                <a href="#home" onclick="showView('home')" class="flex items-center gap-3 group">
+                    <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-teal-600 to-blue-900 flex items-center justify-center text-white shadow-md shadow-teal-500/20 group-hover:scale-105 transition-transform">
+                        <i data-lucide="shield-check" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <span class="text-xl font-black text-slate-900 tracking-tight flex items-center gap-1">
+                            Cartifique<span class="text-teal-600">Auto</span>
+                        </span>
+                        <span class="text-[10px] font-bold tracking-widest uppercase text-slate-400 block -mt-1">Inspecções Veiculares</span>
+                    </div>
+                </a>
+
+                <!-- DESKTOP MENU -->
+                <div class="hidden md:flex items-center gap-8 font-semibold text-sm text-slate-600">
+                    <a href="#home" onclick="showView('home')" class="nav-item hover:text-teal-600 transition-colors">Início</a>
+                    <a href="#simulador" onclick="showView('home'); scrollToSection('simulador')" class="nav-item hover:text-teal-600 transition-colors">Simulador IPO</a>
+                    <a href="#servicos" onclick="showView('home'); scrollToSection('servicos')" class="nav-item hover:text-teal-600 transition-colors">Serviços & Tarifas</a>
+                    <a href="#centros" onclick="showView('home'); scrollToSection('centros')" class="nav-item hover:text-teal-600 transition-colors">Centros</a>
+                    <a href="#faqs" onclick="showView('faqs')" class="nav-item flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-teal-50 text-teal-700 hover:bg-teal-100 font-bold transition-all border border-teal-200/60">
+                        <i data-lucide="help-circle" class="w-4 h-4 text-teal-600"></i> FAQs
+                    </a>
+                </div>
+
+                <!-- CTA BUTTON -->
+                <div class="hidden md:flex items-center gap-3">
+                    <button onclick="openBookingModal()" class="px-5 py-2.5 rounded-xl bg-teal-600 hover:bg-teal-700 text-white font-bold text-sm shadow-lg shadow-teal-600/25 hover:-translate-y-0.5 transition-all flex items-center gap-2">
+                        <i data-lucide="calendar" class="w-4 h-4"></i> Agendar Inspeção
+                    </button>
+                </div>
+
+                <!-- MOBILE MENU BUTTON -->
+                <div class="md:hidden flex items-center gap-2">
+                    <button onclick="toggleMobileMenu()" class="p-2 rounded-lg text-slate-600 hover:bg-slate-100">
+                        <i data-lucide="menu" class="w-6 h-6"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- MOBILE MENU CONTAINER -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-slate-100 px-4 pt-2 pb-6 space-y-3">
+            <a href="#home" onclick="showView('home'); toggleMobileMenu()" class="block py-2 text-slate-700 font-semibold border-b border-slate-50">Início</a>
+            <a href="#simulador" onclick="showView('home'); scrollToSection('simulador'); toggleMobileMenu()" class="block py-2 text-slate-700 font-semibold border-b border-slate-50">Simulador de IPO</a>
+            <a href="#servicos" onclick="showView('home'); scrollToSection('servicos'); toggleMobileMenu()" class="block py-2 text-slate-700 font-semibold border-b border-slate-50">Serviços</a>
+            <a href="#faqs" onclick="showView('faqs'); toggleMobileMenu()" class="flex items-center gap-2 py-2 text-teal-700 font-bold">
+                <i data-lucide="help-circle" class="w-4 h-4"></i> Guia Completo de FAQs
+            </a>
+            <button onclick="openBookingModal(); toggleMobileMenu()" class="w-full mt-2 py-3 bg-teal-600 text-white font-bold rounded-xl flex items-center justify-center gap-2">
+                <i data-lucide="calendar" class="w-4 h-4"></i> Agendar Inspeção Online
+            </button>
+        </div>
+    </nav>
+
+    <div id="view-home" class="flex-grow">
+        
+        <!-- HERO SECTION -->
+        <section class="relative bg-gradient-to-b from-slate-900 via-slate-900 to-slate-800 text-white pt-16 pb-24 overflow-hidden">
+            <!-- Background Decorative Glow -->
+            <div class="absolute top-0 right-1/4 w-96 h-96 bg-teal-500/10 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute bottom-0 left-10 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl pointer-events-none"></div>
+
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div class="grid lg:grid-cols-12 gap-12 items-center">
+                    
+                    <!-- Left Hero Content -->
+                    <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                        <div class="inline-flex items-center gap-2 bg-slate-800/80 border border-slate-700 text-teal-400 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider">
+                            <i data-lucide="sparkles" class="w-4 h-4"></i> Rede Nacional de Centros Cartifique Auto
+                        </div>
+                        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-tight">
+                            Inspeção Obrigatória com <span class="text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-cyan-300">Total Rapidez & Confiança</span>
+                        </h1>
+                        <p class="text-slate-300 text-base sm:text-lg max-w-2xl font-normal leading-relaxed">
+                            Garanta a segurança da sua viatura e evite coimas. Agende online a sua IPO num dos nossos centros oficiais em menos de 2 minutos sem filas de espera.
+                        </p>
+
+                        <!-- Action Buttons -->
+                        <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
+                            <button onclick="openBookingModal()" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-teal-500 hover:bg-teal-400 text-slate-950 font-extrabold text-base shadow-xl shadow-teal-500/20 hover:scale-[1.02] transition-all flex items-center justify-center gap-2">
+                                <i data-lucide="calendar" class="w-5 h-5"></i> Agendar Agora Online
+                            </button>
+                            
+                            <!-- BOTAO COM LINK DIRETO PARA AS FAQS -->
+                            <button onclick="showView('faqs')" class="w-full sm:w-auto px-7 py-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-100 font-bold text-base border border-slate-700 hover:border-slate-600 transition-all flex items-center justify-center gap-2 group">
+                                <i data-lucide="help-circle" class="w-5 h-5 text-teal-400 group-hover:rotate-12 transition-transform"></i> 
+                                Consultar FAQs da Inspeção
+                            </button>
+                        </div>
+
+                        <!-- Highlights list -->
+                        <div class="pt-6 border-t border-slate-800 grid grid-cols-3 gap-4 text-center lg:text-left">
+                            <div>
+                                <div class="text-2xl font-extrabold text-white">100%</div>
+                                <div class="text-xs text-slate-400 font-medium">Aprovado pelo IMT</div>
+                            </div>
+                            <div>
+                                <div class="text-2xl font-extrabold text-white">3 Meses</div>
+                                <div class="text-xs text-slate-400 font-medium">Antecipação Permitida</div>
+                            </div>
+                            <div>
+                                <div class="text-2xl font-extrabold text-white">+250k</div>
+                                <div class="text-xs text-slate-400 font-medium">Inspeções / Ano</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Quick Check Widget -->
+                    <div class="lg:col-span-5">
+                        <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-2xl text-slate-900 border border-slate-100 relative">
+                            <div class="absolute -top-3 right-6 bg-teal-600 text-white text-[11px] font-extrabold px-3 py-1 rounded-full shadow-md uppercase tracking-wider">
+                                Simulador Rápido
+                            </div>
+                            <div class="flex items-center gap-3 mb-6">
+                                <div class="w-10 h-10 rounded-xl bg-teal-100 text-teal-700 flex items-center justify-center">
+                                    <i data-lucide="search" class="w-5 h-5"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-extrabold text-lg leading-snug">Quando é a próxima IPO?</h3>
+                                    <p class="text-xs text-slate-500 font-medium">Calcule a data limite da inspeção da sua viatura</p>
+                                </div>
+                            </div>
+
+                            <form id="hero-sim-form" onsubmit="calculateIPO(event)" class="space-y-4">
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Tipo de Veículo</label>
+                                    <select id="sim-type" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-semibold text-slate-800 focus:outline-none focus:ring-2 focus:ring-teal-500">
+                                        <option value="passageiros">Ligeiro de Passageiros (Particular)</option>
+                                        <option value="mercadorias">Ligeiro de Mercadorias (Comercial)</option>
+                                        <option value="pesado">Veículo Pesado</option>
+                                        <option value="motociclo">Motociclo / Quadriciclo</option>
+                                    </select>
+                                </div>
+
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Data da 1.ª Matrícula (Mês e Ano)</label>
+                                    <div class="grid grid-cols-2 gap-3">
+                                        <select id="sim-month" class="bg-slate-50 border border-slate-200 rounded-xl px-3 py-3 text-sm font-semibold text-slate-800 focus:ring-2 focus:ring-teal-500">
+                                            <option value="1">Janeiro (01)</option>
+                                            <option value="2">Fevereiro (02)</option>
+                                            <option value="3">Março (03)</option>
+                                            <option value="4">Abril (04)</option>
+                                            <option value="5">Maio (05)</option>
+                                            <option value="6">Junho (06)</option>
+                                            <option value="7">Julho (07)</option>
+                                            <option value="8" selected>Agosto (08)</option>
+                                            <option value="9">Setembro (09)</option>
+                                            <option value="10">Outubro (10)</option>
+                                            <option value="11">Novembro (11)</option>
+                                            <option value="12">Dezembro (12)</option>
+                                        </select>
+
+                                        <input type="number" id="sim-year" placeholder="Ex: 2020" value="2020" min="1950" max="2026" class="bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-semibold text-slate-800 focus:ring-2 focus:ring-teal-500">
+                                    </div>
+                                </div>
+
+                                <button type="submit" class="w-full py-3.5 bg-slate-900 hover:bg-slate-800 text-white font-extrabold rounded-xl shadow-md transition-all flex items-center justify-center gap-2 text-sm">
+                                    <i data-lucide="calculator" class="w-4 h-4"></i> Calcular Data de IPO
+                                </button>
+                            </form>
+
+                            <!-- RESULT BOX -->
+                            <div id="sim-result" class="hidden mt-6 p-4 rounded-2xl bg-teal-50 border border-teal-200 text-teal-900 animate-in fade-in duration-300">
+                                <div class="flex items-start gap-3">
+                                    <i data-lucide="calendar-check" class="w-6 h-6 text-teal-600 shrink-0 mt-0.5"></i>
+                                    <div>
+                                        <div class="text-xs font-bold uppercase tracking-wider text-teal-700 mb-1">Resultado do Cálculo</div>
+                                        <div id="sim-result-text" class="text-sm font-extrabold text-slate-900"></div>
+                                        <p id="sim-result-sub" class="text-xs text-slate-600 mt-1"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- SERVICES SECTION -->
+        <section id="servicos" class="py-20 bg-white border-b border-slate-100">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto mb-16">
+                    <span class="text-xs font-extrabold text-teal-600 uppercase tracking-widest bg-teal-50 px-3 py-1 rounded-full border border-teal-100">
+                        Serviços Cartifique Auto
+                    </span>
+                    <h2 class="text-3xl sm:text-4xl font-black text-slate-900 mt-3">
+                        Soluções de Inspeção Integrada para o seu Veículo
+                    </h2>
+                    <p class="text-slate-500 text-base mt-2">
+                        Tudo o que precisa para manter a sua viatura legal, segura e em pleno cumprimento com as diretivas do IMT.
+                    </p>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-8">
+                    <!-- Card 1 -->
+                    <div class="bg-slate-50 rounded-2xl p-8 border border-slate-100 hover:border-teal-500/40 hover:shadow-xl transition-all group">
+                        <div class="w-14 h-14 rounded-2xl bg-teal-500 text-white flex items-center justify-center mb-6 shadow-lg shadow-teal-500/20 group-hover:scale-110 transition-transform">
+                            <i data-lucide="shield" class="w-7 h-7"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-2">Inspeção Periódica (IPO)</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                            Avaliação completa a 8 áreas vitais do veículo (travões, luzes, direção, suspensão, emissões de CO2 e equipamentos).
+                        </p>
+                        <div class="text-xs font-bold text-teal-700 bg-teal-100/60 inline-block px-3 py-1 rounded-lg">
+                            Tarifa Oficial IMT
+                        </div>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div class="bg-slate-50 rounded-2xl p-8 border border-slate-100 hover:border-teal-500/40 hover:shadow-xl transition-all group">
+                        <div class="w-14 h-14 rounded-2xl bg-secondary-500 text-white flex items-center justify-center mb-6 shadow-lg shadow-secondary-500/20 group-hover:scale-110 transition-transform">
+                            <i data-lucide="rotate-ccw" class="w-7 h-7"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-2">Reinspeção (Tipo B)</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                            Em caso de chumbo ou deficiência, realize a verificação dos pontos corrigidos no prazo legal de 30 dias.
+                        </p>
+                        <div class="text-xs font-bold text-slate-700 bg-slate-200 inline-block px-3 py-1 rounded-lg">
+                            Prazo: 30 dias
+                        </div>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div class="bg-slate-50 rounded-2xl p-8 border border-slate-100 hover:border-teal-500/40 hover:shadow-xl transition-all group">
+                        <div class="w-14 h-14 rounded-2xl bg-slate-900 text-white flex items-center justify-center mb-6 shadow-lg shadow-slate-900/20 group-hover:scale-110 transition-transform">
+                            <i data-lucide="wrench" class="w-7 h-7"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-2">Check-up Pré-IPO</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                            Diagnóstico preventivo rigoroso antes da inspeção oficial para garantir aprovação à primeira sem surpresas.
+                        </p>
+                        <div class="text-xs font-bold text-teal-700 bg-teal-100/60 inline-block px-3 py-1 rounded-lg">
+                            Serviço Recomendado
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CENTROS DE INSPEÇÃO -->
+        <section id="centros" class="py-20 bg-slate-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex flex-col md:flex-row justify-between items-end gap-6 mb-12">
+                    <div>
+                        <span class="text-xs font-extrabold text-teal-600 uppercase tracking-widest">Proximidade & Comodidade</span>
+                        <h2 class="text-3xl font-black text-slate-900 mt-1">Centros de Inspeção Cartifique Auto</h2>
+                    </div>
+                    <button onclick="openBookingModal()" class="px-5 py-2.5 rounded-xl bg-slate-900 text-white font-bold text-sm hover:bg-slate-800 transition-colors flex items-center gap-2">
+                        <i data-lucide="map-pin" class="w-4 h-4 text-teal-400"></i> Selecionar Centro para Agendamento
+                    </button>
+                </div>
+
+                <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- Centro Loures -->
+                    <div class="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm hover:shadow-md transition-all">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="font-extrabold text-slate-900 text-lg">Loures</span>
+                            <span class="px-2.5 py-1 bg-green-100 text-green-700 font-extrabold text-[10px] rounded-full">Aberto</span>
+                        </div>
+                        <p class="text-xs text-slate-500 font-medium mb-4">Zona Industrial de Frielas, Lote 12, 2670-391 Loures</p>
+                        <div class="text-xs font-semibold text-slate-700 space-y-1 pt-3 border-t border-slate-100">
+                            <div>Seg a Sáb: 08:00 - 19:30</div>
+                            <div class="text-teal-600 font-bold">Tel: 219 837 100</div>
+                        </div>
+                    </div>
+
+                    <!-- Centro Lisboa -->
+                    <div class="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm hover:shadow-md transition-all">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="font-extrabold text-slate-900 text-lg">Lisboa Oriente</span>
+                            <span class="px-2.5 py-1 bg-green-100 text-green-700 font-extrabold text-[10px] rounded-full">Aberto</span>
+                        </div>
+                        <p class="text-xs text-slate-500 font-medium mb-4">Av. Marechal Gomes da Costa, 1800-240 Lisboa</p>
+                        <div class="text-xs font-semibold text-slate-700 space-y-1 pt-3 border-t border-slate-100">
+                            <div>Seg a Sáb: 08:00 - 20:00</div>
+                            <div class="text-teal-600 font-bold">Tel: 218 392 400</div>
+                        </div>
+                    </div>
+
+                    <!-- Centro Porto -->
+                    <div class="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm hover:shadow-md transition-all">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="font-extrabold text-slate-900 text-lg">Porto Circunvalação</span>
+                            <span class="px-2.5 py-1 bg-green-100 text-green-700 font-extrabold text-[10px] rounded-full">Aberto</span>
+                        </div>
+                        <p class="text-xs text-slate-500 font-medium mb-4">Estrada da Circunvalação 10240, 4250-150 Porto</p>
+                        <div class="text-xs font-semibold text-slate-700 space-y-1 pt-3 border-t border-slate-100">
+                            <div>Seg a Sáb: 08:00 - 19:30</div>
+                            <div class="text-teal-600 font-bold">Tel: 228 349 200</div>
+                        </div>
+                    </div>
+
+                    <!-- Centro Aveiro / Coimbra -->
+                    <div class="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm hover:shadow-md transition-all">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="font-extrabold text-slate-900 text-lg">Aveiro Sul</span>
+                            <span class="px-2.5 py-1 bg-green-100 text-green-700 font-extrabold text-[10px] rounded-full">Aberto</span>
+                        </div>
+                        <p class="text-xs text-slate-500 font-medium mb-4">Zona Industrial de Taboeira, 3800-055 Aveiro</p>
+                        <div class="text-xs font-semibold text-slate-700 space-y-1 pt-3 border-t border-slate-100">
+                            <div>Seg a Sáb: 08:30 - 19:00</div>
+                            <div class="text-teal-600 font-bold">Tel: 234 920 110</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CALL TO ACTION BANNER FOR FAQS -->
+        <section class="py-16 bg-gradient-to-r from-teal-700 to-secondary-500 text-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-8">
+                <div class="space-y-2 text-center md:text-left">
+                    <h3 class="text-2xl sm:text-3xl font-black">Tem dúvidas sobre a Documentação ou Prazos da IPO?</h3>
+                    <p class="text-teal-100 text-sm max-w-xl">
+                        Consulte o nosso guia detalhado de Perguntas Frequentes. Respondemos a todas as dúvidas sobre livretes, reprovações, reinspeções e coimas.
+                    </p>
+                </div>
+                <button onclick="showView('faqs')" class="px-8 py-4 bg-white text-slate-900 hover:bg-slate-100 font-extrabold rounded-xl shadow-xl transition-transform hover:scale-105 shrink-0 flex items-center gap-2">
+                    <i data-lucide="book-open" class="w-5 h-5 text-teal-600"></i> Abrir Portal de FAQs
+                </button>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- DEDICATED FAQs PAGE VIEW (Switchable view inside single file) -->
+    <div id="view-faqs" class="hidden flex-grow bg-slate-50 py-12">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <!-- FAQ Header Banner -->
+            <div class="bg-slate-900 text-white rounded-3xl p-8 sm:p-12 mb-10 shadow-xl relative overflow-hidden">
+                <div class="absolute -right-10 -bottom-10 w-64 h-64 bg-teal-500/10 rounded-full blur-2xl"></div>
+                
+                <div class="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-teal-400 mb-3">
+                    <a href="#home" onclick="showView('home')" class="hover:underline flex items-center gap-1">
+                        <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i> Voltar à Página Inicial
+                    </a>
+                    <span>/</span>
+                    <span>Centro de Ajuda</span>
+                </div>
+
+                <h1 class="text-3xl sm:text-4xl font-black mb-3">
+                    Perguntas Frequentes <span class="text-teal-400">(FAQs)</span>
+                </h1>
+                <p class="text-slate-300 text-sm sm:text-base max-w-2xl leading-relaxed">
+                    Esclareça de forma rápida e transparente todas as dúvidas relativas à Inspeção Periódica Obrigatória (IPO), documentação exigida, prazos legais e procedimentos nos Centros da <strong>Cartifique Auto</strong>.
+                </p>
+
+                <!-- Search Input Bar inside FAQ -->
+                <div class="mt-8 relative max-w-xl">
+                    <i data-lucide="search" class="w-5 h-5 absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                    <input type="text" id="faq-search" onkeyup="filterFAQs()" placeholder="Pesquise por palavra-chave (ex: documentos, reinspeção, prazos, multas)..." class="w-full pl-12 pr-4 py-3.5 bg-slate-800 border border-slate-700 rounded-xl text-white placeholder-slate-400 text-sm focus:outline-none focus:ring-2 focus:ring-teal-400">
+                </div>
+            </div>
+
+            <!-- CATEGORY NAV BUTTONS -->
+            <div class="flex items-center gap-2 overflow-x-auto pb-4 mb-8 custom-scrollbar">
+                <button onclick="filterCategory('all')" class="faq-cat-btn px-4 py-2 rounded-xl text-xs font-extrabold bg-teal-600 text-white shadow-sm transition-all shrink-0" data-cat="all">Todas as Perguntas</button>
+                <button onclick="filterCategory('docs')" class="faq-cat-btn px-4 py-2 rounded-xl text-xs font-extrabold bg-white text-slate-600 hover:bg-slate-100 border border-slate-200 transition-all shrink-0" data-cat="docs">Documentos Exigidos</button>
+                <button onclick="filterCategory('prazos')" class="faq-cat-btn px-4 py-2 rounded-xl text-xs font-extrabold bg-white text-slate-600 hover:bg-slate-100 border border-slate-200 transition-all shrink-0" data-cat="prazos">Prazos e Periodicidade</button>
+                <button onclick="filterCategory('processo')" class="faq-cat-btn px-4 py-2 rounded-xl text-xs font-extrabold bg-white text-slate-600 hover:bg-slate-100 border border-slate-200 transition-all shrink-0" data-cat="processo">Processo de Inspeção</button>
+                <button onclick="filterCategory('reprovacao')" class="faq-cat-btn px-4 py-2 rounded-xl text-xs font-extrabold bg-white text-slate-600 hover:bg-slate-100 border border-slate-200 transition-all shrink-0" data-cat="reprovacao">Reprovações & Reinspeção</button>
+            </div>
+
+            <!-- FAQ ACCORDION LIST -->
+            <div id="faq-accordion-container" class="space-y-4">
+
+                <!-- FAQ Item 1 -->
+                <div class="faq-item bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden" data-category="docs">
+                    <button onclick="toggleFAQ(this)" class="w-full p-6 text-left flex justify-between items-center gap-4 hover:bg-slate-50 transition-colors">
+                        <span class="font-extrabold text-slate-900 text-base sm:text-lg flex items-center gap-3">
+                            <span class="w-8 h-8 rounded-lg bg-teal-50 text-teal-600 flex items-center justify-center text-sm font-black shrink-0">1</span>
+                            Quais são os documentos necessários para realizar a inspeção do meu veículo?
+                        </span>
+                        <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 shrink-0 transition-transform duration-300"></i>
+                    </button>
+                    <div class="faq-answer px-6 pb-6 text-sm text-slate-600 leading-relaxed border-t border-slate-100 pt-4">
+                        <p class="mb-3">Para a realização da Inspeção Periódica Obrigatória (IPO) num centro <strong>Cartifique Auto</strong>, é indispensável apresentar os seguintes documentos originais:</p>
+                        <ul class="list-disc pl-5 space-y-1.5 font-medium">
+                            <li><strong>Livrete e Título de Registo de Propriedade</strong> ou <strong>Documento Único Automóvel (DUA)</strong>;</li>
+                            <li><strong>Ficha da última inspeção realizada</strong> (exceto na 1.ª inspeção absoluta do veículo);</li>
+                            <li>Em caso de reinspeção, é obrigatória a apresentação da ficha de inspeção que assinalou as deficiências a corrigir.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 2 -->
+                <div class="faq-item bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden" data-category="docs">
+                    <button onclick="toggleFAQ(this)" class="w-full p-6 text-left flex justify-between items-center gap-4 hover:bg-slate-50 transition-colors">
+                        <span class="font-extrabold text-slate-900 text-base sm:text-lg flex items-center gap-3">
+                            <span class="w-8 h-8 rounded-lg bg-teal-50 text-teal-600 flex items-center justify-center text-sm font-black shrink-0">2</span>
+                            O que fazer se os documentos do veículo estiverem apreendidos pelas autoridades?
+                        </span>
+                        <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 shrink-0 transition-transform duration-300"></i>
+                    </button>
+                    <div class="faq-answer px-6 pb-6 text-sm text-slate-600 leading-relaxed border-t border-slate-100 pt-4">
+                        <p>Se os documentos da viatura foram apreendidos pela polícia (GNR/PSP), deverá solicitar às autoridades uma <strong>Guia de Substituição</strong> onde conste explicitamente a menção <em>"Válido para IPO"</em>. Sem esta indicação formal na guia ou sem a devida confirmação na base de dados eletrónica do IMT, a inspeção não poderá ser legalmente realizada.</p>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 3 -->
+                <div class="faq-item bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden" data-category="prazos">
+                    <button onclick="toggleFAQ(this)" class="w-full p-6 text-left flex justify-between items-center gap-4 hover:bg-slate-50 transition-colors">
+                        <span class="font-extrabold text-slate-900 text-base sm:text-lg flex items-center gap-3">
+                            <span class="w-8 h-8 rounded-lg bg-teal-50 text-teal-600 flex items-center justify-center text-sm font-black shrink-0">3</span>
+                            Quando devo levar o meu automóvel ligeiro de passageiros à inspeção?
+                        </span>
+                        <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 shrink-0 transition-transform duration-300"></i>
+                    </button>
+                    <div class="faq-answer px-6 pb-6 text-sm text-slate-600 leading-relaxed border-t border-slate-100 pt-4">
+                        <p class="mb-3">A periodicidade legal para automóveis ligeiros de passageiros particulares é a seguinte:</p>
+                        <ul class="list-disc pl-5 space-y-1.5 font-medium">
+                            <li><strong>1.ª Inspeção:</strong> 4 anos após a data da primeira matrícula constante do livrete/DUA;</li>
+                            <li><strong>Subsequentes:</strong> De 2 em 2 anos até perfazer os 8 anos de idade da viatura;</li>
+                            <li><strong>A partir do 8.º ano:</strong> Anualmente.</li>
+                        </ul>
+                        <p class="mt-3 text-xs bg-amber-50 text-amber-800 p-3 rounded-xl border border-amber-200 font-semibold">
+                            💡 <strong>Nota Importante:</strong> A inspeção pode ser realizada nos 3 meses anteriores ao dia e mês da primeira matrícula sem alteração do dia limite base!
+                        </p>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 4 -->
+                <div class="faq-item bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden" data-category="prazos">
+                    <button onclick="toggleFAQ(this)" class="w-full p-6 text-left flex justify-between items-center gap-4 hover:bg-slate-50 transition-colors">
+                        <span class="font-extrabold text-slate-900 text-base sm:text-lg flex items-center gap-3">
+                            <span class="w-8 h-8 rounded-lg bg-teal-50 text-teal-600 flex items-center justify-center text-sm font-black shrink-0">4</span>
+                            Quais são as consequências e multas por circular com a IPO caducada?
+                        </span>
+                        <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 shrink-0 transition-transform duration-300"></i>
+                    </button>
+                    <div class="faq-answer px-6 pb-6 text-sm text-slate-600 leading-relaxed border-t border-slate-100 pt-4">
+                        <p>Circular na via pública sem ter a Inspeção Periódica Obrigatória em dia constitui uma contraordenação grave regulada pelo Código da Estrada. As coimas legais aplicáveis situam-se entre os <strong>250 € e os 1.250 €</strong>. Além disso, em caso de acidente rodoviário, as companhias de seguros podem recusar a cobertura de danos.</p>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 5 -->
+                <div class="faq-item bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden" data-category="processo">
+                    <button onclick="toggleFAQ(this)" class="w-full p-6 text-left flex justify-between items-center gap-4 hover:bg-slate-50 transition-colors">
+                        <span class="font-extrabold text-slate-900 text-base sm:text-lg flex items-center gap-3">
+                            <span class="w-8 h-8 rounded-lg bg-teal-50 text-teal-600 flex items-center justify-center text-sm font-black shrink-0">5</span>
+                            O que é verificado durante a inspeção no centro Cartifique Auto?
+                        </span>
+                        <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 shrink-0 transition-transform duration-300"></i>
+                    </button>
+                    <div class="faq-answer px-6 pb-6 text-sm text-slate-600 leading-relaxed border-t border-slate-100 pt-4">
+                        <p class="mb-3">A inspeção técnica analisa rigorosamente 8 vertentes fundamentais de segurança:</p>
+                        <div class="grid sm:grid-cols-2 gap-2 text-xs font-semibold text-slate-700">
+                            <div class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-teal-600"></i> Identificação do veículo e matrícula</div>
+                            <div class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-teal-600"></i> Sistema de iluminação e sinalização</div>
+                            <div class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-teal-600"></i> Travões e eficiência de travagem</div>
+                            <div class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-teal-600"></i> Alinhamento da direção</div>
+                            <div class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-teal-600"></i> Eixos, pneus e suspensão</div>
+                            <div class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-teal-600"></i> Emissão de gases poluentes e escape</div>
+                            <div class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-teal-600"></i> Visibilidade (vidros e espelhos)</div>
+                            <div class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-teal-600"></i> Colete, triângulo e acessórios</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 6 -->
+                <div class="faq-item bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden" data-category="processo">
+                    <button onclick="toggleFAQ(this)" class="w-full p-6 text-left flex justify-between items-center gap-4 hover:bg-slate-50 transition-colors">
+                        <span class="font-extrabold text-slate-900 text-base sm:text-lg flex items-center gap-3">
+                            <span class="w-8 h-8 rounded-lg bg-teal-50 text-teal-600 flex items-center justify-center text-sm font-black shrink-0">6</span>
+                            Posso acompanhar presencialmente a verificação do meu veículo?
+                        </span>
+                        <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 shrink-0 transition-transform duration-300"></i>
+                    </button>
+                    <div class="faq-answer px-6 pb-6 text-sm text-slate-600 leading-relaxed border-t border-slate-100 pt-4">
+                        <p>Sim. Os clientes têm o direito de acompanhar visualmente as fases inspetivas da sua viatura nas zonas destinadas aos utentes em todos os centros <strong>Cartifique Auto</strong>, respeitando integralmente as orientações de segurança dadas pelos nossos inspetores técnicos.</p>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 7 -->
+                <div class="faq-item bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden" data-category="reprovacao">
+                    <button onclick="toggleFAQ(this)" class="w-full p-6 text-left flex justify-between items-center gap-4 hover:bg-slate-50 transition-colors">
+                        <span class="font-extrabold text-slate-900 text-base sm:text-lg flex items-center gap-3">
+                            <span class="w-8 h-8 rounded-lg bg-teal-50 text-teal-600 flex items-center justify-center text-sm font-black shrink-0">7</span>
+                            O que acontece se o veículo for reprovado na inspeção?
+                        </span>
+                        <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 shrink-0 transition-transform duration-300"></i>
+                    </button>
+                    <div class="faq-answer px-6 pb-6 text-sm text-slate-600 leading-relaxed border-t border-slate-100 pt-4">
+                        <p class="mb-3">Caso a viatura reprove (deficiências de Tipo 2 ou superiores), dispõe de um <strong>prazo de 30 dias</strong> para efetuar as devidas reparações na oficina e submeter a viatura a uma <strong>Reinspeção</strong>.</p>
+                        <p class="mb-2">A reinspeção deve ser realizada <strong>obrigatoriamente no mesmo centro Cartifique Auto</strong> onde foi feita a inspeção inicial. Caso opte por mudar de centro de inspeção, terá legalmente de realizar e pagar uma nova inspeção completa.</p>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 8 -->
+                <div class="faq-item bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden" data-category="reprovacao">
+                    <button onclick="toggleFAQ(this)" class="w-full p-6 text-left flex justify-between items-center gap-4 hover:bg-slate-50 transition-colors">
+                        <span class="font-extrabold text-slate-900 text-base sm:text-lg flex items-center gap-3">
+                            <span class="w-8 h-8 rounded-lg bg-teal-50 text-teal-600 flex items-center justify-center text-sm font-black shrink-0">8</span>
+                            Qual a diferença entre deficiência Tipo 1, Tipo 2 e Tipo 3 (Muito Grave)?
+                        </span>
+                        <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 shrink-0 transition-transform duration-300"></i>
+                    </button>
+                    <div class="faq-answer px-6 pb-6 text-sm text-slate-600 leading-relaxed border-t border-slate-100 pt-4">
+                        <ul class="space-y-3">
+                            <li class="bg-slate-50 p-3 rounded-xl border border-slate-200">
+                                <strong class="text-slate-900 font-extrabold block">Tipo 1 (Deficiência Leve):</strong> Não afeta gravemente as condições de segurança. Permite a aprovação do veículo desde que não acumule mais do que 8 deficiências deste tipo.
+                            </li>
+                            <li class="bg-amber-50 p-3 rounded-xl border border-amber-200">
+                                <strong class="text-amber-900 font-extrabold block">Tipo 2 (Deficiência Grave):</strong> Afeta as condições de funcionamento/segurança. Determina a reprovação do veículo, dando 30 dias para reparação e reinspeção.
+                            </li>
+                            <li class="bg-red-50 p-3 rounded-xl border border-red-200">
+                                <strong class="text-red-900 font-extrabold block">Tipo 3 (Deficiência Muito Grave):</strong> Perigo iminente para a segurança rodoviária. Imobiliza imediatamente o veículo, apenas sendo permitido o seu deslocamento direto de reboque para a oficina.
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- FAQ Support Callout -->
+            <div class="mt-12 p-8 rounded-3xl bg-white border border-slate-200 text-center shadow-sm">
+                <h3 class="text-xl font-extrabold text-slate-900 mb-2">Ainda tem dúvidas por esclarecer?</h3>
+                <p class="text-slate-500 text-sm mb-6">A nossa equipa de apoio ao cliente está disponível para ajudar por telefone ou e-mail.</p>
+                <div class="flex flex-wrap items-center justify-center gap-4">
+                    <a href="tel:800200300" class="px-6 py-3 bg-teal-600 hover:bg-teal-700 text-white font-bold text-sm rounded-xl transition-colors flex items-center gap-2">
+                        <i data-lucide="phone" class="w-4 h-4"></i> Ligar 800 200 300
+                    </a>
+                    <a href="mailto:apoiocliente@cartifiqueauto.pt" class="px-6 py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-sm rounded-xl transition-colors flex items-center gap-2">
+                        <i data-lucide="mail" class="w-4 h-4"></i> Enviar Mensagem
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- BOOKING WIZARD MODAL -->
+    <div id="booking-modal" class="fixed inset-0 z-50 hidden bg-slate-950/70 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl w-full max-w-xl overflow-hidden shadow-2xl border border-slate-100 animate-in fade-in zoom-in-95 duration-200">
+            <!-- Modal Header -->
+            <div class="bg-slate-900 text-white px-6 py-5 flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 rounded-lg bg-teal-500 flex items-center justify-center text-slate-950 font-black">
+                        <i data-lucide="calendar" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-extrabold text-base leading-tight">Agendar Inspeção Técnica</h3>
+                        <p class="text-xs text-slate-400">Cartifique Auto - Reserva de Vaga</p>
+                    </div>
+                </div>
+                <button onclick="closeBookingModal()" class="w-8 h-8 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-400 flex items-center justify-center transition-colors">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+
+            <!-- Modal Form Body -->
+            <form onsubmit="submitBooking(event)" class="p-6 space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Selecione o Centro</label>
+                    <select id="book-center" required class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-sm font-semibold focus:ring-2 focus:ring-teal-500">
+                        <option value="loures">Centro Cartifique Auto - Loures</option>
+                        <option value="lisboa">Centro Cartifique Auto - Lisboa Oriente</option>
+                        <option value="porto">Centro Cartifique Auto - Porto Circunvalação</option>
+                        <option value="aveiro">Centro Cartifique Auto - Aveiro Sul</option>
+                    </select>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Matrícula</label>
+                        <input type="text" id="book-plate" required placeholder="AB-12-34" class="plate-input-mask w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-sm font-semibold focus:ring-2 focus:ring-teal-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Tipo de Serviço</label>
+                        <select id="book-service" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-sm font-semibold focus:ring-2 focus:ring-teal-500">
+                            <option value="ipo">IPO Periódica Obrigatória</option>
+                            <option value="reinspecao">Reinspeção (Tipo B)</option>
+                            <option value="checkup">Check-up Pré-IPO</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Data Desejada</label>
+                        <input type="date" required id="book-date" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-sm font-semibold focus:ring-2 focus:ring-teal-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Hora</label>
+                        <select id="book-time" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-sm font-semibold focus:ring-2 focus:ring-teal-500">
+                            <option>08:30</option>
+                            <option>09:30</option>
+                            <option>10:30</option>
+                            <option>11:30</option>
+                            <option>14:30</option>
+                            <option>15:30</option>
+                            <option>16:30</option>
+                            <option>17:30</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="pt-2">
+                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Nome Completo do Condutor</label>
+                    <input type="text" required placeholder="Ex: Nuno Sarabando" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-sm font-semibold focus:ring-2 focus:ring-teal-500">
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Contacto Telefónico</label>
+                        <input type="tel" required placeholder="966 000 000" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-sm font-semibold focus:ring-2 focus:ring-teal-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">E-mail para Confirmação</label>
+                        <input type="email" required placeholder="exemplo@email.com" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-sm font-semibold focus:ring-2 focus:ring-teal-500">
+                    </div>
+                </div>
+
+                <div class="pt-4 flex gap-3">
+                    <button type="button" onclick="closeBookingModal()" class="w-1/3 py-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-sm transition-colors">
+                        Cancelar
+                    </button>
+                    <button type="submit" class="w-2/3 py-3 rounded-xl bg-teal-600 hover:bg-teal-700 text-white font-extrabold text-sm shadow-lg shadow-teal-600/30 transition-all flex items-center justify-center gap-2">
+                        <i data-lucide="check-circle" class="w-4 h-4"></i> Confirmar Agendamento
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-slate-950 text-slate-400 py-16 border-t border-slate-900 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
+                
+                <!-- Col 1 -->
+                <div class="space-y-4">
+                    <div class="flex items-center gap-2">
+                        <div class="w-8 h-8 rounded-lg bg-teal-500 flex items-center justify-center text-slate-950 font-black">
+                            <i data-lucide="shield-check" class="w-5 h-5"></i>
+                        </div>
+                        <span class="text-xl font-black text-white">Cartifique<span class="text-teal-400">Auto</span></span>
+                    </div>
+                    <p class="text-xs text-slate-400 leading-relaxed">
+                        Rede nacional de Centros de Inspeção Técnica de Veículos devidamente autorizada e certificada pelo Instituto da Mobilidade e dos Transportes (IMT, I.P.).
+                    </p>
+                </div>
+
+                <!-- Col 2 -->
+                <div>
+                    <h4 class="text-sm font-extrabold text-white uppercase tracking-wider mb-4">Navegação Rápida</h4>
+                    <ul class="space-y-2 text-xs font-semibold">
+                        <li><a href="#home" onclick="showView('home')" class="hover:text-teal-400 transition-colors">Início</a></li>
+                        <li><a href="#simulador" onclick="showView('home'); scrollToSection('simulador')" class="hover:text-teal-400 transition-colors">Simulador IPO</a></li>
+                        <li><a href="#faqs" onclick="showView('faqs')" class="text-teal-400 font-bold flex items-center gap-1"><i data-lucide="help-circle" class="w-3.5 h-3.5"></i> Guia Completo de FAQs</a></li>
+                        <li><a href="#centros" onclick="showView('home'); scrollToSection('centros')" class="hover:text-teal-400 transition-colors">Rede de Centros</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 3 -->
+                <div>
+                    <h4 class="text-sm font-extrabold text-white uppercase tracking-wider mb-4">Apoio ao Cliente</h4>
+                    <ul class="space-y-2 text-xs font-semibold">
+                        <li>Linha Direta: <span class="text-white font-bold">800 200 300</span></li>
+                        <li>Email: <span class="text-white">apoiocliente@cartifiqueauto.pt</span></li>
+                        <li>Horário: Seg a Sáb das 08:00 às 20:00</li>
+                    </ul>
+                </div>
+
+                <!-- Col 4 -->
+                <div>
+                    <h4 class="text-sm font-extrabold text-white uppercase tracking-wider mb-4">Garantia de Qualidade</h4>
+                    <p class="text-xs leading-relaxed mb-3">
+                        Todas as inspeções cumprem rigorosamente os padrões de qualidade e imparcialidade fixados por lei em Portugal.
+                    </p>
+                    <span class="inline-block px-3 py-1 rounded bg-slate-900 border border-slate-800 text-[10px] font-bold text-teal-400">
+                        Entidade Aprovada IMT #8041
+                    </span>
+                </div>
+
+            </div>
+
+            <div class="pt-8 border-t border-slate-900 flex flex-col sm:flex-row justify-between items-center text-xs text-slate-500 gap-4">
+                <p>&copy; 2026 Cartifique Auto. Todos os direitos reservados.</p>
+                <div class="flex gap-6 font-semibold">
+                    <a href="#" class="hover:text-slate-400">Termos e Condições</a>
+                    <a href="#" class="hover:text-slate-400">Política de Privacidade</a>
+                    <a href="#faqs" onclick="showView('faqs')" class="text-teal-400 hover:underline">FAQs</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Inicializar ícones Lucide
+        if (typeof lucide !== 'undefined') {
+            lucide.createIcons();
+        }
+
+        // Definir data mínima do agendamento para hoje
+        document.getElementById('book-date').min = new Date().toISOString().split('T')[0];
+
+        // Alternar entre Visualização Principal e Página de FAQs
+        function showView(viewName) {
+            const homeView = document.getElementById('view-home');
+            const faqsView = document.getElementById('view-faqs');
+
+            if (viewName === 'faqs') {
+                homeView.classList.add('hidden');
+                faqsView.classList.remove('hidden');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else {
+                faqsView.classList.add('hidden');
+                homeView.classList.remove('hidden');
+            }
+            if (typeof lucide !== 'undefined') lucide.createIcons();
+        }
+
+        // Scroll suave para secções
+        function scrollToSection(id) {
+            setTimeout(() => {
+                const el = document.getElementById(id);
+                if (el) el.scrollIntoView({ behavior: 'smooth' });
+            }, 100);
+        }
+
+        // Alternar menu mobile
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Simulador de Próxima IPO
+        function calculateIPO(e) {
+            e.preventDefault();
+            const type = document.getElementById('sim-type').value;
+            const monthIndex = parseInt(document.getElementById('sim-month').value);
+            const year = parseInt(document.getElementById('sim-year').value);
+
+            const monthNames = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
+            const selectedMonthName = monthNames[monthIndex - 1];
+
+            let nextYear = 2026;
+            const age = 2026 - year;
+
+            if (type === 'passageiros') {
+                if (age < 4) {
+                    nextYear = year + 4;
+                } else if (age >= 4 && age < 8) {
+                    // de 2 em 2 anos
+                    nextYear = (age % 2 === 0) ? 2026 : 2027;
+                } else {
+                    nextYear = 2026; // Anual
+                }
+            } else {
+                // Comerciais / Mercadorias: 1ª aos 2 anos, depois anualmente
+                nextYear = (age < 2) ? year + 2 : 2026;
+            }
+
+            const resultBox = document.getElementById('sim-result');
+            const resultText = document.getElementById('sim-result-text');
+            const resultSub = document.getElementById('sim-result-sub');
+
+            resultText.innerText = `Próxima IPO limite: Até ao final do mês de ${selectedMonthName} de ${nextYear}`;
+            resultSub.innerHTML = `Poderá realizar a inspeção com toda a comodidade a partir de <strong>${monthNames[(monthIndex - 4 + 12) % 12]} de ${nextYear}</strong> (até 3 meses antes).`;
+            
+            resultBox.classList.remove('hidden');
+        }
+
+        // Accordion das FAQs
+        function toggleFAQ(buttonEl) {
+            const item = buttonEl.parentElement;
+            const answer = item.querySelector('.faq-answer');
+            const icon = buttonEl.querySelector('[data-lucide="chevron-down"]');
+
+            const isOpen = answer.classList.contains('open');
+
+            // Fechar todos
+            document.querySelectorAll('.faq-answer').forEach(el => el.classList.remove('open'));
+            document.querySelectorAll('[data-lucide="chevron-down"]').forEach(ic => ic.style.transform = 'rotate(0deg)');
+
+            if (!isOpen) {
+                answer.classList.add('open');
+                if (icon) icon.style.transform = 'rotate(180deg)';
+            }
+        }
+
+        // Filtrar FAQs por pesquisa
+        function filterFAQs() {
+            const query = document.getElementById('faq-search').value.toLowerCase();
+            const items = document.querySelectorAll('.faq-item');
+
+            items.forEach(item => {
+                const text = item.innerText.toLowerCase();
+                if (text.includes(query)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        // Filtrar FAQs por categoria
+        function filterCategory(cat) {
+            const btns = document.querySelectorAll('.faq-cat-btn');
+            btns.forEach(btn => {
+                if (btn.dataset.cat === cat) {
+                    btn.className = 'faq-cat-btn px-4 py-2 rounded-xl text-xs font-extrabold bg-teal-600 text-white shadow-sm transition-all shrink-0';
+                } else {
+                    btn.className = 'faq-cat-btn px-4 py-2 rounded-xl text-xs font-extrabold bg-white text-slate-600 hover:bg-slate-100 border border-slate-200 transition-all shrink-0';
+                }
+            });
+
+            const items = document.querySelectorAll('.faq-item');
+            items.forEach(item => {
+                if (cat === 'all' || item.dataset.category === cat) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        // Controlos do Modal de Agendamento
+        function openBookingModal() {
+            document.getElementById('booking-modal').classList.remove('hidden');
+        }
+
+        function closeBookingModal() {
+            document.getElementById('booking-modal').classList.add('hidden');
+        }
+
+        function submitBooking(e) {
+            e.preventDefault();
+            const plate = document.getElementById('book-plate').value;
+            const date = document.getElementById('book-date').value;
+
+            alert(`Reserva efetuada com sucesso para a matrícula ${plate} no dia ${date}. Irá receber a confirmação por e-mail e SMS!`);
+            closeBookingModal();
+        }
+    </script>
+</body>
+</html>
