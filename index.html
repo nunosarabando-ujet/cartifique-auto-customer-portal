@@ -5,761 +5,140 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cartifique Auto | Centros de Inspeção Técnica de Veículos</title>
 
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-
-    <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
-
     <style>
-        :root {
-            --primary: #028090;
-            --primary-hover: #026c7a;
-            --primary-dark: #05668d;
-            --primary-light: #f0fdfa;
-            --primary-border: #ccfbf1;
-            
-            --secondary: #0f4c81;
-            --secondary-dark: #081c24;
-            
-            --slate-50: #f8fafc;
-            --slate-100: #f1f5f9;
-            --slate-200: #e2e8f0;
-            --slate-300: #cbd5e1;
-            --slate-400: #94a3b8;
-            --slate-500: #64748b;
-            --slate-600: #475569;
-            --slate-700: #334155;
-            --slate-800: #1e293b;
-            --slate-900: #0f172a;
-            --slate-950: #080d1a;
-            
-            --white: #ffffff;
-            --green: #16a34a;
-            --green-light: #dcfce7;
-            --amber: #d97706;
-            --amber-light: #fef3c7;
-            --red: #dc2626;
-            --red-light: #fee2e2;
-
-            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -1px rgba(0, 0, 0, 0.04);
-            --shadow-lg: 0 10px 15px -3px rgba(2, 128, 144, 0.12), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.15), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-            --radius-lg: 12px;
-            --radius-xl: 16px;
-            --radius-2xl: 24px;
-        }
-
+        /* CSS reset & layout overrides to complement inline styles */
         * { box-sizing: border-box; margin: 0; padding: 0; }
-
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background-color: var(--slate-50);
-            color: var(--slate-800);
-            line-height: 1.5;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-            -webkit-font-smoothing: antialiased;
-        }
-
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background-color: #f8fafc; color: #1e293b; line-height: 1.5; -webkit-font-smoothing: antialiased; }
         a { text-decoration: none; color: inherit; }
         button { font-family: inherit; cursor: pointer; border: none; background: none; }
-
-        .container {
-            width: 100%;
-            max-width: 1280px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* --- ANNOUNCEMENT BAR --- */
-        .announcement-bar {
-            background-color: var(--slate-900);
-            color: var(--slate-300);
-            font-size: 12px;
-            padding: 8px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-        }
-        .announcement-content {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            align-items: center;
-            gap: 8px;
-        }
-        @media (min-width: 640px) {
-            .announcement-content { flex-direction: row; }
-        }
-        .pill-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 2px 10px;
-            border-radius: 999px;
-            background-color: rgba(2, 128, 144, 0.2);
-            color: #2dd4bf;
-            font-weight: 700;
-            font-size: 11px;
-        }
-
-        /* --- NAVBAR --- */
-        .navbar {
-            position: sticky;
-            top: 0;
-            z-index: 40;
-            background-color: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--slate-200);
-            box-shadow: var(--shadow-sm);
-        }
-        .navbar-inner {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            height: 76px;
-        }
-        .brand-logo {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        .logo-icon {
-            width: 42px;
-            height: 42px;
-            border-radius: var(--radius-lg);
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--white);
-            box-shadow: var(--shadow-md);
-        }
-        .logo-title {
-            font-size: 20px;
-            font-weight: 900;
-            color: var(--slate-900);
-            letter-spacing: -0.02em;
-            line-height: 1.1;
-        }
-        .logo-title span { color: var(--primary); }
-        .logo-sub {
-            font-size: 10px;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: var(--slate-400);
-            display: block;
-        }
-
-        .nav-links {
-            display: none;
-            align-items: center;
-            gap: 28px;
-            font-weight: 600;
-            font-size: 14px;
-            color: var(--slate-600);
-        }
-        @media (min-width: 768px) {
-            .nav-links { display: flex; }
-        }
-        .nav-item:hover { color: var(--primary); }
-        .nav-faq-badge {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            padding: 6px 14px;
-            border-radius: var(--radius-lg);
-            background-color: var(--primary-light);
-            color: var(--primary);
-            font-weight: 800;
-            border: 1px solid var(--primary-border);
-            transition: all 0.2s;
-        }
-        .nav-faq-badge:hover { background-color: #ccfbf1; }
-
-        .btn-cta {
-            padding: 10px 20px;
-            border-radius: var(--radius-lg);
-            background-color: var(--primary);
-            color: var(--white);
-            font-weight: 800;
-            font-size: 14px;
-            box-shadow: var(--shadow-md);
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.2s;
-        }
-        .btn-cta:hover {
-            background-color: var(--primary-hover);
-            transform: translateY(-1px);
-        }
-
-        /* --- HERO SECTION --- */
-        .hero-section {
-            background: linear-gradient(180deg, var(--slate-900) 0%, var(--slate-950) 100%);
-            color: var(--white);
-            padding: 64px 0 96px;
-            position: relative;
-            overflow: hidden;
-        }
-        .hero-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 48px;
-            align-items: center;
-        }
-        @media (min-width: 1024px) {
-            .hero-grid { grid-template-columns: 7fr 5fr; }
-        }
-        .hero-title {
-            font-size: 36px;
-            font-weight: 900;
-            line-height: 1.15;
-            letter-spacing: -0.03em;
-            margin-bottom: 16px;
-        }
-        @media (min-width: 640px) { .hero-title { font-size: 48px; } }
-        .hero-title span {
-            background: linear-gradient(90deg, #2dd4bf 0%, #38bdf8 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .hero-text {
-            color: var(--slate-300);
-            font-size: 16px;
-            margin-bottom: 28px;
-            max-width: 600px;
-        }
-        .hero-actions {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            margin-bottom: 36px;
-        }
-        @media (min-width: 640px) { .hero-actions { flex-direction: row; } }
-
-        .btn-hero-main {
-            padding: 14px 28px;
-            border-radius: var(--radius-xl);
-            background-color: #2dd4bf;
-            color: var(--slate-950);
-            font-weight: 900;
-            font-size: 15px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            transition: all 0.2s;
-        }
-        .btn-hero-main:hover {
-            background-color: #14b8a6;
-            transform: translateY(-2px);
-        }
-        .btn-hero-sub {
-            padding: 14px 24px;
-            border-radius: var(--radius-xl);
-            background-color: var(--slate-800);
-            color: var(--white);
-            font-weight: 700;
-            font-size: 15px;
-            border: 1px solid var(--slate-700);
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            transition: all 0.2s;
-        }
-        .btn-hero-sub:hover { background-color: var(--slate-700); }
-
-        .hero-stats {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 16px;
-            padding-top: 24px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        .stat-val { font-size: 24px; font-weight: 900; color: var(--white); }
-        .stat-lbl { font-size: 11px; color: var(--slate-400); font-weight: 500; }
-
-        /* --- QUICK SIMULATOR CARD --- */
-        .sim-card {
-            background-color: var(--white);
-            color: var(--slate-900);
-            border-radius: var(--radius-2xl);
-            padding: 28px;
-            box-shadow: var(--shadow-xl);
-            position: relative;
-        }
-        .sim-badge {
-            position: absolute;
-            top: -12px;
-            right: 24px;
-            background-color: var(--primary);
-            color: var(--white);
-            font-size: 10px;
-            font-weight: 900;
-            padding: 4px 12px;
-            border-radius: 999px;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-        .sim-header {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 20px;
-        }
-        .sim-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: var(--radius-lg);
-            background-color: var(--primary-light);
-            color: var(--primary);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .form-group { margin-bottom: 16px; }
-        .form-label {
-            display: block;
-            font-size: 11px;
-            font-weight: 800;
-            color: var(--slate-700);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin-bottom: 6px;
-        }
-        .form-select, .form-input {
-            width: 100%;
-            background-color: var(--slate-50);
-            border: 1px solid var(--slate-200);
-            border-radius: var(--radius-lg);
-            padding: 12px 14px;
-            font-size: 14px;
-            font-weight: 600;
-            color: var(--slate-800);
-            outline: none;
-        }
-        .form-select:focus, .form-input:focus {
-            border-color: var(--primary);
-            background-color: var(--white);
-        }
-        .form-grid-2 {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-        }
-        .btn-sim-submit {
-            width: 100%;
-            padding: 14px;
-            background-color: var(--slate-900);
-            color: var(--white);
-            font-weight: 900;
-            font-size: 14px;
-            border-radius: var(--radius-lg);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            transition: background 0.2s;
-        }
-        .btn-sim-submit:hover { background-color: var(--slate-800); }
-
-        .sim-result-box {
-            margin-top: 20px;
-            padding: 16px;
-            border-radius: var(--radius-xl);
-            background-color: var(--primary-light);
-            border: 1px solid var(--primary-border);
-            color: var(--slate-900);
-        }
-
-        /* --- SERVICES SECTION --- */
-        .services-section {
-            padding: 80px 0;
-            background-color: var(--white);
-            border-bottom: 1px solid var(--slate-100);
-        }
-        .section-header-center {
-            text-align: center;
-            max-width: 640px;
-            margin: 0 auto 56px;
-        }
-        .section-tag {
-            font-size: 11px;
-            font-weight: 900;
-            color: var(--primary);
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            background-color: var(--primary-light);
-            padding: 4px 12px;
-            border-radius: 999px;
-            border: 1px solid var(--primary-border);
-            display: inline-block;
-            margin-bottom: 12px;
-        }
-        .section-title {
-            font-size: 32px;
-            font-weight: 900;
-            color: var(--slate-900);
-            letter-spacing: -0.02em;
-        }
-        .section-sub {
-            color: var(--slate-500);
-            font-size: 15px;
-            margin-top: 8px;
-        }
-
-        .services-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 24px;
-        }
-        @media (min-width: 768px) { .services-grid { grid-template-columns: repeat(3, 1fr); } }
-
-        .service-card {
-            background-color: var(--slate-50);
-            border-radius: var(--radius-2xl);
-            padding: 32px;
-            border: 1px solid var(--slate-200);
-            transition: all 0.3s;
-        }
-        .service-card:hover {
-            border-color: var(--primary);
-            box-shadow: var(--shadow-xl);
-            transform: translateY(-2px);
-        }
-        .service-card-icon {
-            width: 52px;
-            height: 52px;
-            border-radius: var(--radius-xl);
-            background-color: var(--primary);
-            color: var(--white);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 20px;
-            box-shadow: var(--shadow-md);
-        }
-
-        /* --- CENTROS SECTION --- */
-        .centros-section {
-            padding: 80px 0;
-            background-color: var(--slate-50);
-        }
-        .centros-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 20px;
-        }
-        @media (min-width: 640px) { .centros-grid { grid-template-columns: repeat(2, 1fr); } }
-        @media (min-width: 1024px) { .centros-grid { grid-template-columns: repeat(4, 1fr); } }
-
-        .centro-card {
-            background-color: var(--white);
-            border-radius: var(--radius-2xl);
-            padding: 24px;
-            border: 1px solid var(--slate-200);
-            box-shadow: var(--shadow-sm);
-        }
-        .status-open {
-            padding: 2px 8px;
-            background-color: var(--green-light);
-            color: var(--green);
-            font-weight: 900;
-            font-size: 10px;
-            border-radius: 999px;
-        }
-
-        /* --- CALLOUT BANNER --- */
-        .banner-callout {
-            padding: 64px 0;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            color: var(--white);
-        }
-        .banner-flex {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            align-items: center;
-            gap: 24px;
-            text-align: center;
-        }
-        @media (min-width: 768px) {
-            .banner-flex { flex-direction: row; text-align: left; }
-        }
-
-        /* --- FAQs PAGE VIEW --- */
-        .faqs-container {
-            padding: 48px 0 80px;
-            max-width: 960px;
-            margin: 0 auto;
-        }
-        .faq-hero-banner {
-            background-color: var(--slate-900);
-            color: var(--white);
-            border-radius: var(--radius-2xl);
-            padding: 40px;
-            margin-bottom: 32px;
-            box-shadow: var(--shadow-xl);
-            position: relative;
-            overflow: hidden;
-        }
-        .faq-search-box {
-            position: relative;
-            max-width: 560px;
-            margin-top: 24px;
-        }
-        .faq-search-box input {
-            width: 100%;
-            padding: 14px 16px 14px 44px;
-            background-color: var(--slate-800);
-            border: 1px solid var(--slate-700);
-            border-radius: var(--radius-xl);
-            color: var(--white);
-            font-size: 14px;
-            outline: none;
-        }
-        .faq-search-box input:focus { border-color: #2dd4bf; }
-        .faq-search-box i {
-            position: absolute;
-            left: 16px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--slate-400);
-        }
-
-        .faq-categories {
-            display: flex;
-            gap: 8px;
-            overflow-x: auto;
-            padding-bottom: 12px;
-            margin-bottom: 28px;
-        }
-        .faq-cat-btn {
-            padding: 8px 16px;
-            border-radius: var(--radius-xl);
-            font-size: 12px;
-            font-weight: 800;
-            white-space: nowrap;
-            border: 1px solid var(--slate-200);
-            background-color: var(--white);
-            color: var(--slate-600);
-            transition: all 0.2s;
-        }
-        .faq-cat-btn.active {
-            background-color: var(--primary);
-            color: var(--white);
-            border-color: var(--primary);
-        }
-
-        /* FAQ ACCORDION STYLING */
-        .faq-accordion { display: flex; flex-direction: column; gap: 16px; }
-        .faq-item {
-            background-color: var(--white);
-            border-radius: var(--radius-xl);
-            border: 1px solid var(--slate-200);
-            overflow: hidden;
-            box-shadow: var(--shadow-sm);
-        }
-        .faq-question-btn {
-            width: 100%;
-            padding: 20px 24px;
-            text-align: left;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-weight: 800;
-            font-size: 16px;
-            color: var(--slate-900);
-            background-color: var(--white);
-            transition: background 0.2s;
-        }
-        .faq-question-btn:hover { background-color: var(--slate-50); }
-        .faq-answer-panel {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.35s ease-out, padding 0.35s ease-out;
-            padding: 0 24px;
-            font-size: 14px;
-            color: var(--slate-600);
-            line-height: 1.6;
-        }
-        .faq-answer-panel.open {
-            max-height: 1000px;
-            padding: 0 24px 24px;
-            border-top: 1px solid var(--slate-100);
-            margin-top: 12px;
-            padding-top: 16px;
-        }
-
-        /* --- MODAL --- */
-        .modal-overlay {
-            position: fixed;
-            inset: 0;
-            z-index: 50;
-            background-color: rgba(15, 23, 42, 0.7);
-            backdrop-filter: blur(6px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 16px;
-        }
-        .modal-card {
-            background-color: var(--white);
-            border-radius: var(--radius-2xl);
-            width: 100%;
-            max-width: 560px;
-            overflow: hidden;
-            box-shadow: var(--shadow-xl);
-        }
-        .modal-header {
-            background-color: var(--slate-900);
-            color: var(--white);
-            padding: 20px 24px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        /* --- FOOTER --- */
-        footer {
-            background-color: var(--slate-950);
-            color: var(--slate-400);
-            padding: 64px 0 32px;
-            margin-top: auto;
-            border-top: 1px solid var(--slate-900);
-        }
-        .footer-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 40px;
-            margin-bottom: 48px;
-        }
-        @media (min-width: 768px) { .footer-grid { grid-template-columns: repeat(4, 1fr); } }
-
+        input, select { font-family: inherit; }
         .hidden { display: none !important; }
+        
+        /* Smooth transitions for interactive components */
+        .faq-answer-panel { max-height: 0; overflow: hidden; transition: max-height 0.35s ease-out, padding 0.35s ease-out, margin 0.35s ease-out; }
+        .faq-answer-panel.open { max-height: 1000px; padding: 16px 24px 24px 24px; margin-top: 8px; border-top: 1px solid #f1f5f9; }
+        .btn-hover:hover { opacity: 0.9; transform: translateY(-1px); }
+        .card-hover:hover { border-color: #028090 !important; box-shadow: 0 10px 25px -3px rgba(2, 128, 144, 0.15) !important; }
     </style>
 </head>
-<body>
+<body style="background-color: #f8fafc; color: #1e293b; display: flex; flex-direction: column; min-height: 100vh;">
 
     <!-- TOP ANNOUNCEMENT BAR -->
-    <div class="announcement-bar">
-        <div class="container announcement-content">
+    <div style="background-color: #0f172a; color: #cbd5e1; font-size: 12px; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.08);">
+        <div style="width: 100%; max-width: 1280px; margin: 0 auto; padding: 0 20px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px;">
             <div style="display: flex; align-items: center; gap: 8px;">
-                <span class="pill-badge">
-                    <i data-lucide="shield-check" style="width:14px; height:14px;"></i> CITV Oficial IMT
+                <span style="display: inline-flex; align-items: center; gap: 6px; padding: 2px 10px; border-radius: 999px; background-color: rgba(2, 128, 144, 0.25); color: #2dd4bf; font-weight: 700; font-size: 11px;">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg> CITV Oficial IMT
                 </span>
                 <span>Pode realizar a sua IPO nos 3 meses anteriores à data limite!</span>
             </div>
-            <div style="display: flex; align-items: center; gap: 16px; color: var(--slate-400); font-weight: 500;">
-                <a href="tel:800200300" style="display: flex; align-items: center; gap: 4px; color: inherit;">
-                    <i data-lucide="phone" style="width:14px; height:14px;"></i> 800 200 300 (Gratuito)
+            <div style="display: flex; align-items: center; gap: 16px; color: #94a3b8; font-weight: 600;">
+                <a href="tel:800200300" style="display: flex; align-items: center; gap: 6px; color: #cbd5e1; text-decoration: none;">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg> 800 200 300 (Gratuito)
                 </a>
-                <span>|</span>
-                <span style="display: flex; align-items: center; gap: 4px;">
-                    <i data-lucide="clock" style="width:14px; height:14px;"></i> Seg - Sáb: 08:00 - 20:00
+                <span style="color: #475569;">|</span>
+                <span style="display: flex; align-items: center; gap: 6px;">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Seg - Sáb: 08:00 - 20:00
                 </span>
             </div>
         </div>
     </div>
 
     <!-- MAIN NAVBAR -->
-    <nav class="navbar">
-        <div class="container navbar-inner">
-            <a href="#home" onclick="showView('home')" class="brand-logo">
-                <div class="logo-icon">
-                    <i data-lucide="shield-check" style="width:24px; height:24px;"></i>
+    <nav style="position: sticky; top: 0; z-index: 40; background-color: #ffffff; border-bottom: 1px solid #e2e8f0; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+        <div style="width: 100%; max-width: 1280px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; height: 76px;">
+            <a href="#home" onclick="showView('home')" style="display: flex; align-items: center; gap: 12px; text-decoration: none;">
+                <div style="width: 42px; height: 42px; border-radius: 12px; background: linear-gradient(135deg, #028090 0%, #0f4c81 100%); display: flex; align-items: center; justify-content: center; color: #ffffff; box-shadow: 0 4px 6px -1px rgba(2,128,144,0.3);">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
                 </div>
                 <div>
-                    <span class="logo-title">Cartifique<span>Auto</span></span>
-                    <span class="logo-sub">Inspeções Veiculares</span>
+                    <span style="font-size: 20px; font-weight: 900; color: #0f172a; letter-spacing: -0.02em; line-height: 1.1; display: block;">Cartifique<span style="color: #028090;">Auto</span></span>
+                    <span style="font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: #94a3b8; display: block;">Inspeções Veiculares</span>
                 </div>
             </a>
 
-            <div class="nav-links">
-                <a href="#home" onclick="showView('home')" class="nav-item">Início</a>
-                <a href="#simulador" onclick="showView('home'); scrollToSection('simulador')" class="nav-item">Simulador IPO</a>
-                <a href="#servicos" onclick="showView('home'); scrollToSection('servicos')" class="nav-item">Serviços & Tarifas</a>
-                <a href="#centros" onclick="showView('home'); scrollToSection('centros')" class="nav-item">Centros</a>
-                <a href="#faqs" onclick="showView('faqs')" class="nav-faq-badge">
-                    <i data-lucide="help-circle" style="width:16px; height:16px;"></i> FAQs
+            <div style="display: flex; align-items: center; gap: 24px; font-weight: 700; font-size: 14px; color: #475569;">
+                <a href="#home" onclick="showView('home')" style="color: #0f172a; text-decoration: none;">Início</a>
+                <a href="#simulador" onclick="showView('home'); scrollToSection('simulador')" style="color: #475569; text-decoration: none;">Simulador IPO</a>
+                <a href="#servicos" onclick="showView('home'); scrollToSection('servicos')" style="color: #475569; text-decoration: none;">Serviços & Tarifas</a>
+                <a href="#centros" onclick="showView('home'); scrollToSection('centros')" style="color: #475569; text-decoration: none;">Centros</a>
+                <a href="#faqs" onclick="showView('faqs')" style="display: flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 12px; background-color: #f0fdfa; color: #028090; font-weight: 800; border: 1px solid #ccfbf1; text-decoration: none;">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg> FAQs
                 </a>
             </div>
 
-            <button onclick="openBookingModal()" class="btn-cta">
-                <i data-lucide="calendar" style="width:16px; height:16px;"></i> Agendar Inspeção
+            <button onclick="openBookingModal()" style="padding: 12px 22px; border-radius: 12px; background-color: #028090; color: #ffffff; font-weight: 800; font-size: 14px; box-shadow: 0 4px 6px -1px rgba(2, 128, 144, 0.3); display: inline-flex; align-items: center; gap: 8px; border: none; cursor: pointer;" class="btn-hover">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> Agendar Inspeção
             </button>
         </div>
     </nav>
 
+    <!-- HOME VIEW PORTAL -->
     <div id="view-home">
         
         <!-- HERO SECTION -->
-        <section class="hero-section">
-            <div class="container">
-                <div class="hero-grid">
+        <section style="background: linear-gradient(180deg, #0f172a 0%, #080d1a 100%); color: #ffffff; padding: 64px 0 96px; position: relative; overflow: hidden;">
+            <div style="width: 100%; max-width: 1280px; margin: 0 auto; padding: 0 20px;">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 48px; align-items: center;">
                     
                     <!-- Left Hero Content -->
                     <div>
-                        <span class="section-tag" style="background-color: rgba(255,255,255,0.1); color: #2dd4bf; border-color: rgba(255,255,255,0.2);">
+                        <span style="font-size: 11px; font-weight: 900; color: #2dd4bf; text-transform: uppercase; letter-spacing: 0.1em; background-color: rgba(255,255,255,0.1); padding: 6px 14px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.15); display: inline-block; margin-bottom: 16px;">
                             Rede Nacional de Centros Cartifique Auto
                         </span>
-                        <h1 class="hero-title">
-                            Inspeção Obrigatória com <span>Total Rapidez & Confiança</span>
+                        <h1 style="font-size: 42px; font-weight: 900; line-height: 1.15; letter-spacing: -0.03em; margin-bottom: 16px; color: #ffffff;">
+                            Inspeção Obrigatória com <span style="background: linear-gradient(90deg, #2dd4bf 0%, #38bdf8 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Total Rapidez & Confiança</span>
                         </h1>
-                        <p class="hero-text">
+                        <p style="color: #cbd5e1; font-size: 16px; margin-bottom: 32px; max-width: 600px; line-height: 1.6;">
                             Garanta a segurança da sua viatura e evite coimas. Agende online a sua IPO num dos nossos centros oficiais em menos de 2 minutos sem filas de espera.
                         </p>
 
-                        <div class="hero-actions">
-                            <button onclick="openBookingModal()" class="btn-hero-main">
-                                <i data-lucide="calendar" style="width:18px; height:18px;"></i> Agendar Agora Online
+                        <div style="display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 40px;">
+                            <button onclick="openBookingModal()" style="padding: 16px 28px; border-radius: 14px; background-color: #2dd4bf; color: #080d1a; font-weight: 900; font-size: 15px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; border: none; cursor: pointer; box-shadow: 0 10px 15px -3px rgba(45, 212, 191, 0.3);" class="btn-hover">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> Agendar Agora Online
                             </button>
-                            <button onclick="showView('faqs')" class="btn-hero-sub">
-                                <i data-lucide="help-circle" style="width:18px; height:18px; color: #2dd4bf;"></i> Consultar FAQs da Inspeção
+                            <button onclick="showView('faqs')" style="padding: 16px 24px; border-radius: 14px; background-color: #1e293b; color: #ffffff; font-weight: 700; font-size: 15px; border: 1px solid #334155; display: inline-flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer;" class="btn-hover">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2dd4bf" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg> Consultar FAQs da Inspeção
                             </button>
                         </div>
 
-                        <div class="hero-stats">
+                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; padding-top: 24px; border-top: 1px solid rgba(255, 255, 255, 0.12);">
                             <div>
-                                <div class="stat-val">100%</div>
-                                <div class="stat-lbl">Aprovado pelo IMT</div>
+                                <div style="font-size: 26px; font-weight: 900; color: #ffffff;">100%</div>
+                                <div style="font-size: 11px; color: #94a3b8; font-weight: 600;">Aprovado pelo IMT</div>
                             </div>
                             <div>
-                                <div class="stat-val">3 Meses</div>
-                                <div class="stat-lbl">Antecipação Permitida</div>
+                                <div style="font-size: 26px; font-weight: 900; color: #ffffff;">3 Meses</div>
+                                <div style="font-size: 11px; color: #94a3b8; font-weight: 600;">Antecipação Permitida</div>
                             </div>
                             <div>
-                                <div class="stat-val">+250k</div>
-                                <div class="stat-lbl">Inspeções / Ano</div>
+                                <div style="font-size: 26px; font-weight: 900; color: #ffffff;">+250k</div>
+                                <div style="font-size: 11px; color: #94a3b8; font-weight: 600;">Inspeções / Ano</div>
                             </div>
                         </div>
                     </div>
 
                     <!-- Right Quick Check Widget -->
                     <div id="simulador">
-                        <div class="sim-card">
-                            <div class="sim-badge">Simulador Rápido</div>
-                            <div class="sim-header">
-                                <div class="sim-icon">
-                                    <i data-lucide="calculator" style="width:20px; height:20px;"></i>
+                        <div style="background-color: #ffffff; color: #0f172a; border-radius: 24px; padding: 32px; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3); position: relative;">
+                            <div style="position: absolute; top: -12px; right: 24px; background-color: #028090; color: #ffffff; font-size: 10px; font-weight: 900; padding: 4px 14px; border-radius: 999px; text-transform: uppercase; letter-spacing: 0.05em;">
+                                Simulador Rápido
+                            </div>
+                            
+                            <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 24px;">
+                                <div style="width: 44px; height: 44px; border-radius: 12px; background-color: #f0fdfa; color: #028090; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="16" y1="14" x2="16" y2="18"/><path d="M16 10h.01"/><path d="M12 10h.01"/><path d="M8 10h.01"/><path d="M12 14h.01"/><path d="M8 14h.01"/><path d="M12 18h.01"/><path d="M8 18h.01"/></svg>
                                 </div>
                                 <div>
-                                    <h3 style="font-size:18px; font-weight:900;">Quando é a próxima IPO?</h3>
-                                    <p style="font-size:12px; color:var(--slate-500);">Calcule a data limite do seu veículo</p>
+                                    <h3 style="font-size: 18px; font-weight: 900; color: #0f172a; margin: 0;">Quando é a próxima IPO?</h3>
+                                    <p style="font-size: 12px; color: #64748b; margin: 2px 0 0 0;">Calcule a data limite de inspeção do seu veículo</p>
                                 </div>
                             </div>
 
                             <form onsubmit="calculateIPO(event)">
-                                <div class="form-group">
-                                    <label class="form-label">Tipo de Veículo</label>
-                                    <select id="sim-type" class="form-select">
+                                <div style="margin-bottom: 16px;">
+                                    <label style="display: block; font-size: 11px; font-weight: 800; color: #475569; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px;">Tipo de Veículo</label>
+                                    <select id="sim-type" style="width: 100%; background-color: #f8fafc; border: 1px solid #cbd5e1; border-radius: 12px; padding: 12px 14px; font-size: 14px; font-weight: 600; color: #0f172a; outline: none; box-sizing: border-box;">
                                         <option value="passageiros">Ligeiro de Passageiros (Particular)</option>
                                         <option value="mercadorias">Ligeiro de Mercadorias (Comercial)</option>
                                         <option value="pesado">Veículo Pesado</option>
@@ -767,10 +146,10 @@
                                     </select>
                                 </div>
 
-                                <div class="form-group">
-                                    <label class="form-label">Data da 1.ª Matrícula (Mês e Ano)</label>
-                                    <div class="form-grid-2">
-                                        <select id="sim-month" class="form-select">
+                                <div style="margin-bottom: 20px;">
+                                    <label style="display: block; font-size: 11px; font-weight: 800; color: #475569; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px;">Data da 1.ª Matrícula (Mês e Ano)</label>
+                                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                                        <select id="sim-month" style="width: 100%; background-color: #f8fafc; border: 1px solid #cbd5e1; border-radius: 12px; padding: 12px 14px; font-size: 14px; font-weight: 600; color: #0f172a; outline: none; box-sizing: border-box;">
                                             <option value="1">Janeiro (01)</option>
                                             <option value="2">Fevereiro (02)</option>
                                             <option value="3">Março (03)</option>
@@ -784,22 +163,22 @@
                                             <option value="11">Novembro (11)</option>
                                             <option value="12">Dezembro (12)</option>
                                         </select>
-                                        <input type="number" id="sim-year" placeholder="Ex: 2020" value="2020" min="1950" max="2026" class="form-input">
+                                        <input type="number" id="sim-year" placeholder="Ex: 2020" value="2020" min="1950" max="2026" style="width: 100%; background-color: #f8fafc; border: 1px solid #cbd5e1; border-radius: 12px; padding: 12px 14px; font-size: 14px; font-weight: 600; color: #0f172a; outline: none; box-sizing: border-box;">
                                     </div>
                                 </div>
 
-                                <button type="submit" class="btn-sim-submit">
-                                    <i data-lucide="calculator" style="width:16px; height:16px;"></i> Calcular Data Limite
+                                <button type="submit" style="width: 100%; padding: 14px; background-color: #0f172a; color: #ffffff; font-weight: 900; font-size: 14px; border-radius: 12px; display: flex; align-items: center; justify-content: center; gap: 8px; border: none; cursor: pointer;" class="btn-hover">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="16" y1="14" x2="16" y2="18"/><path d="M16 10h.01"/><path d="M12 10h.01"/><path d="M8 10h.01"/><path d="M12 14h.01"/><path d="M8 14h.01"/><path d="M12 18h.01"/><path d="M8 18h.01"/></svg> Calcular Data Limite
                                 </button>
                             </form>
 
-                            <div id="sim-result" class="hidden sim-result-box">
-                                <div style="display:flex; gap:12px; align-items:flex-start;">
-                                    <i data-lucide="calendar-check" style="width:24px; height:24px; color:var(--primary); shrink:0;"></i>
+                            <div id="sim-result" class="hidden" style="margin-top: 20px; padding: 16px; border-radius: 16px; background-color: #f0fdfa; border: 1px solid #ccfbf1; color: #0f172a;">
+                                <div style="display: flex; gap: 12px; align-items: flex-start;">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#028090" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0;"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><path d="M9 16l2 2 4-4"/></svg>
                                     <div>
-                                        <div style="font-size:11px; font-weight:800; text-transform:uppercase; color:var(--primary); margin-bottom:2px;">Resultado</div>
-                                        <div id="sim-result-text" style="font-size:14px; font-weight:900;"></div>
-                                        <p id="sim-result-sub" style="font-size:12px; color:var(--slate-600); margin-top:4px;"></p>
+                                        <div style="font-size: 11px; font-weight: 800; text-transform: uppercase; color: #028090; margin-bottom: 2px;">Resultado</div>
+                                        <div id="sim-result-text" style="font-size: 14px; font-weight: 900; color: #0f172a;"></div>
+                                        <p id="sim-result-sub" style="font-size: 12px; color: #475569; margin-top: 4px;"></p>
                                     </div>
                                 </div>
                             </div>
@@ -811,104 +190,108 @@
         </section>
 
         <!-- SERVICES SECTION -->
-        <section id="servicos" class="services-section">
-            <div class="container">
-                <div class="section-header-center">
-                    <span class="section-tag">Serviços Cartifique Auto</span>
-                    <h2 class="section-title">Soluções de Inspeção Integrada para o seu Veículo</h2>
-                    <p class="section-sub">Tudo o que precisa para manter a sua viatura legal, segura e em pleno cumprimento com as diretivas do IMT.</p>
+        <section id="servicos" style="padding: 80px 0; background-color: #ffffff; border-bottom: 1px solid #f1f5f9;">
+            <div style="width: 100%; max-width: 1280px; margin: 0 auto; padding: 0 20px;">
+                <div style="text-align: center; max-width: 640px; margin: 0 auto 56px;">
+                    <span style="font-size: 11px; font-weight: 900; color: #028090; text-transform: uppercase; letter-spacing: 0.1em; background-color: #f0fdfa; padding: 4px 14px; border-radius: 999px; border: 1px solid #ccfbf1; display: inline-block; margin-bottom: 12px;">
+                        Serviços Cartifique Auto
+                    </span>
+                    <h2 style="font-size: 32px; font-weight: 900; color: #0f172a; letter-spacing: -0.02em;">Soluções de Inspeção Integrada para o seu Veículo</h2>
+                    <p style="color: #64748b; font-size: 15px; margin-top: 8px;">Tudo o que precisa para manter a sua viatura legal, segura e em pleno cumprimento com as diretivas do IMT.</p>
                 </div>
 
-                <div class="services-grid">
-                    <div class="service-card">
-                        <div class="service-card-icon">
-                            <i data-lucide="shield" style="width:24px; height:24px;"></i>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px;">
+                    <div style="background-color: #f8fafc; border-radius: 24px; padding: 32px; border: 1px solid #e2e8f0; transition: all 0.3s;" class="card-hover">
+                        <div style="width: 52px; height: 52px; border-radius: 16px; background-color: #028090; color: #ffffff; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; box-shadow: 0 4px 6px -1px rgba(2, 128, 144, 0.3);">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
                         </div>
-                        <h3 style="font-size:18px; font-weight:900; margin-bottom:8px;">Inspeção Periódica (IPO)</h3>
-                        <p style="font-size:13px; color:var(--slate-600); margin-bottom:16px;">Avaliação completa a 8 áreas vitais do veículo (travões, luzes, direção, suspensão, emissões de CO2 e equipamentos).</p>
-                        <span style="font-size:11px; font-weight:800; color:var(--primary); background-color:var(--primary-light); padding:4px 10px; border-radius:6px;">Tarifa Oficial IMT</span>
+                        <h3 style="font-size: 18px; font-weight: 900; color: #0f172a; margin-bottom: 8px;">Inspeção Periódica (IPO)</h3>
+                        <p style="font-size: 13px; color: #475569; margin-bottom: 16px; line-height: 1.6;">Avaliação completa a 8 áreas vitais do veículo (travões, luzes, direção, suspensão, emissões de CO2 e equipamentos).</p>
+                        <span style="font-size: 11px; font-weight: 800; color: #028090; background-color: #f0fdfa; padding: 4px 10px; border-radius: 6px; border: 1px solid #ccfbf1;">Tarifa Oficial IMT</span>
                     </div>
 
-                    <div class="service-card">
-                        <div class="service-card-icon" style="background-color: var(--secondary);">
-                            <i data-lucide="rotate-ccw" style="width:24px; height:24px;"></i>
+                    <div style="background-color: #f8fafc; border-radius: 24px; padding: 32px; border: 1px solid #e2e8f0; transition: all 0.3s;" class="card-hover">
+                        <div style="width: 52px; height: 52px; border-radius: 16px; background-color: #0f4c81; color: #ffffff; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; box-shadow: 0 4px 6px -1px rgba(15, 76, 129, 0.3);">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 5 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
                         </div>
-                        <h3 style="font-size:18px; font-weight:900; margin-bottom:8px;">Reinspeção (Tipo B)</h3>
-                        <p style="font-size:13px; color:var(--slate-600); margin-bottom:16px;">Em caso de chumbo ou deficiência, realize a verificação dos pontos corrigidos no prazo legal de 30 dias.</p>
-                        <span style="font-size:11px; font-weight:800; color:var(--slate-700); background-color:var(--slate-200); padding:4px 10px; border-radius:6px;">Prazo Legal: 30 dias</span>
+                        <h3 style="font-size: 18px; font-weight: 900; color: #0f172a; margin-bottom: 8px;">Reinspeção (Tipo B)</h3>
+                        <p style="font-size: 13px; color: #475569; margin-bottom: 16px; line-height: 1.6;">Em caso de chumbo ou deficiência, realize a verificação dos pontos corrigidos no prazo legal de 30 dias.</p>
+                        <span style="font-size: 11px; font-weight: 800; color: #334155; background-color: #e2e8f0; padding: 4px 10px; border-radius: 6px;">Prazo Legal: 30 dias</span>
                     </div>
 
-                    <div class="service-card">
-                        <div class="service-card-icon" style="background-color: var(--slate-900);">
-                            <i data-lucide="wrench" style="width:24px; height:24px;"></i>
+                    <div style="background-color: #f8fafc; border-radius: 24px; padding: 32px; border: 1px solid #e2e8f0; transition: all 0.3s;" class="card-hover">
+                        <div style="width: 52px; height: 52px; border-radius: 16px; background-color: #0f172a; color: #ffffff; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.3);">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.4a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
                         </div>
-                        <h3 style="font-size:18px; font-weight:900; margin-bottom:8px;">Check-up Pré-IPO</h3>
-                        <p style="font-size:13px; color:var(--slate-600); margin-bottom:16px;">Diagnóstico preventivo rigoroso antes da inspeção oficial para garantir aprovação à primeira sem surpresas.</p>
-                        <span style="font-size:11px; font-weight:800; color:var(--primary); background-color:var(--primary-light); padding:4px 10px; border-radius:6px;">Serviço Recomendado</span>
+                        <h3 style="font-size: 18px; font-weight: 900; color: #0f172a; margin-bottom: 8px;">Check-up Pré-IPO</h3>
+                        <p style="font-size: 13px; color: #475569; margin-bottom: 16px; line-height: 1.6;">Diagnóstico preventivo rigoroso antes da inspeção oficial para garantir aprovação à primeira sem surpresas.</p>
+                        <span style="font-size: 11px; font-weight: 800; color: #028090; background-color: #f0fdfa; padding: 4px 10px; border-radius: 6px; border: 1px solid #ccfbf1;">Serviço Recomendado</span>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- CENTROS DE INSPEÇÃO -->
-        <section id="centros" class="centros-section">
-            <div class="container">
-                <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:32px; flex-wrap:wrap; gap:16px;">
+        <section id="centros" style="padding: 80px 0; background-color: #f8fafc;">
+            <div style="width: 100%; max-width: 1280px; margin: 0 auto; padding: 0 20px;">
+                <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 32px; flex-wrap: wrap; gap: 16px;">
                     <div>
-                        <span class="section-tag">Proximidade & Comodidade</span>
-                        <h2 class="section-title">Centros de Inspeção Cartifique Auto</h2>
+                        <span style="font-size: 11px; font-weight: 900; color: #028090; text-transform: uppercase; letter-spacing: 0.1em; background-color: #f0fdfa; padding: 4px 14px; border-radius: 999px; border: 1px solid #ccfbf1; display: inline-block; margin-bottom: 12px;">
+                            Proximidade & Comodidade
+                        </span>
+                        <h2 style="font-size: 32px; font-weight: 900; color: #0f172a;">Centros de Inspeção Cartifique Auto</h2>
                     </div>
-                    <button onclick="openBookingModal()" class="btn-cta" style="background-color: var(--slate-900);">
-                        <i data-lucide="map-pin" style="width:16px; height:16px; color:#2dd4bf;"></i> Selecionar Centro para Agendamento
+                    <button onclick="openBookingModal()" style="padding: 12px 20px; border-radius: 12px; background-color: #0f172a; color: #ffffff; font-weight: 800; font-size: 14px; display: inline-flex; align-items: center; gap: 8px; border: none; cursor: pointer;" class="btn-hover">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2dd4bf" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Selecionar Centro para Agendamento
                     </button>
                 </div>
 
-                <div class="centros-grid">
-                    <div class="centro-card">
-                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
-                            <strong style="font-size:18px; font-weight:900;">Loures</strong>
-                            <span class="status-open">Aberto</span>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px;">
+                    <div style="background-color: #ffffff; border-radius: 20px; padding: 24px; border: 1px solid #e2e8f0; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                            <strong style="font-size: 18px; font-weight: 900; color: #0f172a;">Loures</strong>
+                            <span style="padding: 2px 10px; background-color: #dcfce7; color: #16a34a; font-weight: 900; font-size: 10px; border-radius: 999px;">Aberto</span>
                         </div>
-                        <p style="font-size:12px; color:var(--slate-500); margin-bottom:16px;">Zona Industrial de Frielas, Lote 12, 2670-391 Loures</p>
-                        <div style="font-size:12px; font-weight:600; padding-top:12px; border-top:1px solid var(--slate-100);">
+                        <p style="font-size: 12px; color: #64748b; margin-bottom: 16px;">Zona Industrial de Frielas, Lote 12, 2670-391 Loures</p>
+                        <div style="font-size: 12px; font-weight: 600; padding-top: 12px; border-top: 1px solid #f1f5f9; color: #334155;">
                             <div>Seg a Sáb: 08:00 - 19:30</div>
-                            <div style="color:var(--primary); font-weight:800; margin-top:2px;">Tel: 219 837 100</div>
+                            <div style="color: #028090; font-weight: 800; margin-top: 2px;">Tel: 219 837 100</div>
                         </div>
                     </div>
 
-                    <div class="centro-card">
-                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
-                            <strong style="font-size:18px; font-weight:900;">Lisboa Oriente</strong>
-                            <span class="status-open">Aberto</span>
+                    <div style="background-color: #ffffff; border-radius: 20px; padding: 24px; border: 1px solid #e2e8f0; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                            <strong style="font-size: 18px; font-weight: 900; color: #0f172a;">Lisboa Oriente</strong>
+                            <span style="padding: 2px 10px; background-color: #dcfce7; color: #16a34a; font-weight: 900; font-size: 10px; border-radius: 999px;">Aberto</span>
                         </div>
-                        <p style="font-size:12px; color:var(--slate-500); margin-bottom:16px;">Av. Marechal Gomes da Costa, 1800-240 Lisboa</p>
-                        <div style="font-size:12px; font-weight:600; padding-top:12px; border-top:1px solid var(--slate-100);">
+                        <p style="font-size: 12px; color: #64748b; margin-bottom: 16px;">Av. Marechal Gomes da Costa, 1800-240 Lisboa</p>
+                        <div style="font-size: 12px; font-weight: 600; padding-top: 12px; border-top: 1px solid #f1f5f9; color: #334155;">
                             <div>Seg a Sáb: 08:00 - 20:00</div>
-                            <div style="color:var(--primary); font-weight:800; margin-top:2px;">Tel: 218 392 400</div>
+                            <div style="color: #028090; font-weight: 800; margin-top: 2px;">Tel: 218 392 400</div>
                         </div>
                     </div>
 
-                    <div class="centro-card">
-                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
-                            <strong style="font-size:18px; font-weight:900;">Porto Circunvalação</strong>
-                            <span class="status-open">Aberto</span>
+                    <div style="background-color: #ffffff; border-radius: 20px; padding: 24px; border: 1px solid #e2e8f0; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                            <strong style="font-size: 18px; font-weight: 900; color: #0f172a;">Porto Circunvalação</strong>
+                            <span style="padding: 2px 10px; background-color: #dcfce7; color: #16a34a; font-weight: 900; font-size: 10px; border-radius: 999px;">Aberto</span>
                         </div>
-                        <p style="font-size:12px; color:var(--slate-500); margin-bottom:16px;">Estrada da Circunvalação 10240, 4250-150 Porto</p>
-                        <div style="font-size:12px; font-weight:600; padding-top:12px; border-top:1px solid var(--slate-100);">
+                        <p style="font-size: 12px; color: #64748b; margin-bottom: 16px;">Estrada da Circunvalação 10240, 4250-150 Porto</p>
+                        <div style="font-size: 12px; font-weight: 600; padding-top: 12px; border-top: 1px solid #f1f5f9; color: #334155;">
                             <div>Seg a Sáb: 08:00 - 19:30</div>
-                            <div style="color:var(--primary); font-weight:800; margin-top:2px;">Tel: 228 349 200</div>
+                            <div style="color: #028090; font-weight: 800; margin-top: 2px;">Tel: 228 349 200</div>
                         </div>
                     </div>
 
-                    <div class="centro-card">
-                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
-                            <strong style="font-size:18px; font-weight:900;">Aveiro Sul</strong>
-                            <span class="status-open">Aberto</span>
+                    <div style="background-color: #ffffff; border-radius: 20px; padding: 24px; border: 1px solid #e2e8f0; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                            <strong style="font-size: 18px; font-weight: 900; color: #0f172a;">Aveiro Sul</strong>
+                            <span style="padding: 2px 10px; background-color: #dcfce7; color: #16a34a; font-weight: 900; font-size: 10px; border-radius: 999px;">Aberto</span>
                         </div>
-                        <p style="font-size:12px; color:var(--slate-500); margin-bottom:16px;">Zona Industrial de Taboeira, 3800-055 Aveiro</p>
-                        <div style="font-size:12px; font-weight:600; padding-top:12px; border-top:1px solid var(--slate-100);">
+                        <p style="font-size: 12px; color: #64748b; margin-bottom: 16px;">Zona Industrial de Taboeira, 3800-055 Aveiro</p>
+                        <div style="font-size: 12px; font-weight: 600; padding-top: 12px; border-top: 1px solid #f1f5f9; color: #334155;">
                             <div>Seg a Sáb: 08:30 - 19:00</div>
-                            <div style="color:var(--primary); font-weight:800; margin-top:2px;">Tel: 234 920 110</div>
+                            <div style="color: #028090; font-weight: 800; margin-top: 2px;">Tel: 234 920 110</div>
                         </div>
                     </div>
                 </div>
@@ -916,86 +299,88 @@
         </section>
 
         <!-- CALL TO ACTION BANNER FOR FAQS -->
-        <section class="banner-callout">
-            <div class="container banner-flex">
+        <section style="padding: 64px 0; background: linear-gradient(135deg, #028090 0%, #0f4c81 100%); color: #ffffff;">
+            <div style="width: 100%; max-width: 1280px; margin: 0 auto; padding: 0 20px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 24px;">
                 <div>
-                    <h3 style="font-size:28px; font-weight:900; margin-bottom:6px;">Tem dúvidas sobre a Documentação ou Prazos da IPO?</h3>
-                    <p style="font-size:14px; opacity:0.9; max-width:600px;">Consulte o nosso guia detalhado de Perguntas Frequentes. Respondemos a todas as dúvidas sobre livretes, reprovações, reinspeções e coimas.</p>
+                    <h3 style="font-size: 28px; font-weight: 900; margin-bottom: 6px; color: #ffffff;">Tem dúvidas sobre a Documentação ou Prazos da IPO?</h3>
+                    <p style="font-size: 14px; opacity: 0.9; max-width: 600px; margin: 0;">Consulte o nosso guia detalhado de Perguntas Frequentes. Respondemos a todas as dúvidas sobre livretes, reprovações, reinspeções e coimas.</p>
                 </div>
-                <button onclick="showView('faqs')" style="padding:14px 28px; background-color:var(--white); color:var(--slate-900); font-weight:900; border-radius:var(--radius-xl); box-shadow:var(--shadow-lg); display:inline-flex; align-items:center; gap:8px;">
-                    <i data-lucide="book-open" style="width:18px; height:18px; color:var(--primary);"></i> Abrir Portal de FAQs
+                <button onclick="showView('faqs')" style="padding: 16px 28px; background-color: #ffffff; color: #0f172a; font-weight: 900; font-size: 14px; border-radius: 14px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.2); display: inline-flex; align-items: center; gap: 8px; border: none; cursor: pointer;" class="btn-hover">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#028090" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg> Abrir Portal de FAQs
                 </button>
             </div>
         </section>
 
     </div>
 
-    <!-- DEDICATED FAQs PAGE VIEW (Switchable view inside single file) -->
-    <div id="view-faqs" class="hidden faqs-container">
+    <!-- DEDICATED FAQs PAGE VIEW -->
+    <div id="view-faqs" class="hidden" style="padding: 48px 0 80px; max-width: 960px; margin: 0 auto;">
         
         <!-- FAQ Header Banner -->
-        <div class="faq-hero-banner">
-            <div style="display:flex; align-items:center; gap:6px; font-size:11px; font-weight:800; text-transform:uppercase; color:#2dd4bf; margin-bottom:12px;">
-                <a href="#home" onclick="showView('home')" style="color:inherit; display:flex; align-items:center; gap:4px;">
-                    <i data-lucide="arrow-left" style="width:14px; height:14px;"></i> Voltar à Página Inicial
+        <div style="background-color: #0f172a; color: #ffffff; border-radius: 24px; padding: 40px; margin-bottom: 32px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.15); position: relative; overflow: hidden;">
+            <div style="display: flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 800; text-transform: uppercase; color: #2dd4bf; margin-bottom: 12px;">
+                <a href="#home" onclick="showView('home')" style="color: inherit; display: flex; align-items: center; gap: 6px; text-decoration: none;">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg> Voltar à Página Inicial
                 </a>
                 <span>/</span>
                 <span>Centro de Ajuda</span>
             </div>
 
-            <h1 style="font-size:32px; font-weight:900; margin-bottom:8px;">
-                Perguntas Frequentes <span style="color:#2dd4bf;">(FAQs)</span>
+            <h1 style="font-size: 32px; font-weight: 900; margin-bottom: 8px; color: #ffffff;">
+                Perguntas Frequentes <span style="color: #2dd4bf;">(FAQs)</span>
             </h1>
-            <p style="font-size:14px; color:var(--slate-300); max-width:600px;">
+            <p style="font-size: 14px; color: #cbd5e1; max-width: 600px; margin: 0; line-height: 1.6;">
                 Esclareça de forma rápida e transparente todas as dúvidas relativas à Inspeção Periódica Obrigatória (IPO), documentação exigida, prazos legais e procedimentos nos Centros da <strong>Cartifique Auto</strong>.
             </p>
 
             <!-- Search Input Bar -->
-            <div class="faq-search-box">
-                <i data-lucide="search" style="width:18px; height:18px;"></i>
-                <input type="text" id="faq-search" onkeyup="filterFAQs()" placeholder="Pesquise por palavra-chave (ex: documentos, reinspeção, prazos, multas)...">
+            <div style="position: relative; max-width: 560px; margin-top: 24px;">
+                <div style="position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: #94a3b8; display: flex; align-items: center;">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                </div>
+                <input type="text" id="faq-search" onkeyup="filterFAQs()" placeholder="Pesquise por palavra-chave (ex: documentos, reinspeção, prazos, multas)..." style="width: 100%; padding: 14px 16px 14px 46px; background-color: #1e293b; border: 1px solid #334155; border-radius: 14px; color: #ffffff; font-size: 14px; outline: none; box-sizing: border-box;">
             </div>
         </div>
 
         <!-- CATEGORY NAV BUTTONS -->
-        <div class="faq-categories">
-            <button onclick="filterCategory('all')" class="faq-cat-btn active" data-cat="all">Todas as Perguntas</button>
-            <button onclick="filterCategory('docs')" class="faq-cat-btn" data-cat="docs">Documentos Exigidos</button>
-            <button onclick="filterCategory('prazos')" class="faq-cat-btn" data-cat="prazos">Prazos e Periodicidade</button>
-            <button onclick="filterCategory('processo')" class="faq-cat-btn" data-cat="processo">Processo de Inspeção</button>
-            <button onclick="filterCategory('reprovacao')" class="faq-cat-btn" data-cat="reprovacao">Reprovações & Reinspeção</button>
+        <div style="display: flex; gap: 8px; overflow-x: auto; padding-bottom: 12px; margin-bottom: 28px;">
+            <button onclick="filterCategory('all')" class="faq-cat-btn" data-cat="all" style="padding: 8px 16px; border-radius: 12px; font-size: 12px; font-weight: 800; white-space: nowrap; border: 1px solid #028090; background-color: #028090; color: #ffffff; cursor: pointer;">Todas as Perguntas</button>
+            <button onclick="filterCategory('docs')" class="faq-cat-btn" data-cat="docs" style="padding: 8px 16px; border-radius: 12px; font-size: 12px; font-weight: 800; white-space: nowrap; border: 1px solid #cbd5e1; background-color: #ffffff; color: #475569; cursor: pointer;">Documentos Exigidos</button>
+            <button onclick="filterCategory('prazos')" class="faq-cat-btn" data-cat="prazos" style="padding: 8px 16px; border-radius: 12px; font-size: 12px; font-weight: 800; white-space: nowrap; border: 1px solid #cbd5e1; background-color: #ffffff; color: #475569; cursor: pointer;">Prazos e Periodicidade</button>
+            <button onclick="filterCategory('processo')" class="faq-cat-btn" data-cat="processo" style="padding: 8px 16px; border-radius: 12px; font-size: 12px; font-weight: 800; white-space: nowrap; border: 1px solid #cbd5e1; background-color: #ffffff; color: #475569; cursor: pointer;">Processo de Inspeção</button>
+            <button onclick="filterCategory('reprovacao')" class="faq-cat-btn" data-cat="reprovacao" style="padding: 8px 16px; border-radius: 12px; font-size: 12px; font-weight: 800; white-space: nowrap; border: 1px solid #cbd5e1; background-color: #ffffff; color: #475569; cursor: pointer;">Reprovações & Reinspeção</button>
         </div>
 
         <!-- FAQ ACCORDION LIST -->
-        <div id="faq-accordion-container" class="faq-accordion">
+        <div id="faq-accordion-container" style="display: flex; flex-direction: column; gap: 16px;">
 
             <!-- FAQ Item 1 -->
-            <div class="faq-item" data-category="docs">
-                <button onclick="toggleFAQ(this)" class="faq-question-btn">
-                    <span style="display:flex; align-items:center; gap:12px;">
-                        <span style="width:28px; height:28px; border-radius:6px; background-color:var(--primary-light); color:var(--primary); display:inline-flex; align-items:center; justify-content:center; font-size:12px; font-weight:900;">1</span>
+            <div class="faq-item" data-category="docs" style="background-color: #ffffff; border-radius: 16px; border: 1px solid #e2e8f0; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+                <button onclick="toggleFAQ(this)" style="width: 100%; padding: 20px 24px; text-align: left; display: flex; justify-content: space-between; align-items: center; font-weight: 800; font-size: 16px; color: #0f172a; background-color: #ffffff; border: none; cursor: pointer;">
+                    <span style="display: flex; align-items: center; gap: 12px;">
+                        <span style="width: 28px; height: 28px; border-radius: 8px; background-color: #f0fdfa; color: #028090; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 900;">1</span>
                         Quais são os documentos necessários para realizar a inspeção do meu veículo?
                     </span>
-                    <i data-lucide="chevron-down" style="width:18px; height:18px; color:var(--slate-400); transition:transform 0.3s;"></i>
+                    <svg class="chevron-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="transition: transform 0.3s;"><polyline points="6 9 12 15 18 9"/></svg>
                 </button>
                 <div class="faq-answer-panel">
-                    <p style="margin-bottom:8px;">Para a realização da Inspeção Periódica Obrigatória (IPO) num centro <strong>Cartifique Auto</strong>, é indispensável apresentar os seguintes documentos originais:</p>
-                    <ul style="padding-left:20px; font-weight:500;">
-                        <li style="margin-bottom:4px;"><strong>Livrete e Título de Registo de Propriedade</strong> ou <strong>Documento Único Automóvel (DUA)</strong>;</li>
-                        <li style="margin-bottom:4px;"><strong>Ficha da última inspeção realizada</strong> (exceto na 1.ª inspeção absoluta do veículo);</li>
+                    <p style="margin-bottom: 8px;">Para a realização da Inspeção Periódica Obrigatória (IPO) num centro <strong>Cartifique Auto</strong>, é indispensável apresentar os seguintes documentos originais:</p>
+                    <ul style="padding-left: 20px; font-weight: 500;">
+                        <li style="margin-bottom: 4px;"><strong>Livrete e Título de Registo de Propriedade</strong> ou <strong>Documento Único Automóvel (DUA)</strong>;</li>
+                        <li style="margin-bottom: 4px;"><strong>Ficha da última inspeção realizada</strong> (exceto na 1.ª inspeção absoluta do veículo);</li>
                         <li>Em caso de reinspeção, é obrigatória a apresentação da ficha de inspeção que assinalou as deficiências a corrigir.</li>
                     </ul>
                 </div>
             </div>
 
             <!-- FAQ Item 2 -->
-            <div class="faq-item" data-category="docs">
-                <button onclick="toggleFAQ(this)" class="faq-question-btn">
-                    <span style="display:flex; align-items:center; gap:12px;">
-                        <span style="width:28px; height:28px; border-radius:6px; background-color:var(--primary-light); color:var(--primary); display:inline-flex; align-items:center; justify-content:center; font-size:12px; font-weight:900;">2</span>
+            <div class="faq-item" data-category="docs" style="background-color: #ffffff; border-radius: 16px; border: 1px solid #e2e8f0; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+                <button onclick="toggleFAQ(this)" style="width: 100%; padding: 20px 24px; text-align: left; display: flex; justify-content: space-between; align-items: center; font-weight: 800; font-size: 16px; color: #0f172a; background-color: #ffffff; border: none; cursor: pointer;">
+                    <span style="display: flex; align-items: center; gap: 12px;">
+                        <span style="width: 28px; height: 28px; border-radius: 8px; background-color: #f0fdfa; color: #028090; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 900;">2</span>
                         O que fazer se os documentos do veículo estiverem apreendidos pelas autoridades?
                     </span>
-                    <i data-lucide="chevron-down" style="width:18px; height:18px; color:var(--slate-400); transition:transform 0.3s;"></i>
+                    <svg class="chevron-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="transition: transform 0.3s;"><polyline points="6 9 12 15 18 9"/></svg>
                 </button>
                 <div class="faq-answer-panel">
                     <p>Se os documentos da viatura foram apreendidos pela polícia (GNR/PSP), deverá solicitar às autoridades uma <strong>Guia de Substituição</strong> onde conste explicitamente a menção <em>"Válido para IPO"</em>. Sem esta indicação formal na guia ou sem a devida confirmação na base de dados eletrónica do IMT, a inspeção não poderá ser legalmente realizada.</p>
@@ -1003,35 +388,35 @@
             </div>
 
             <!-- FAQ Item 3 -->
-            <div class="faq-item" data-category="prazos">
-                <button onclick="toggleFAQ(this)" class="faq-question-btn">
-                    <span style="display:flex; align-items:center; gap:12px;">
-                        <span style="width:28px; height:28px; border-radius:6px; background-color:var(--primary-light); color:var(--primary); display:inline-flex; align-items:center; justify-content:center; font-size:12px; font-weight:900;">3</span>
+            <div class="faq-item" data-category="prazos" style="background-color: #ffffff; border-radius: 16px; border: 1px solid #e2e8f0; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+                <button onclick="toggleFAQ(this)" style="width: 100%; padding: 20px 24px; text-align: left; display: flex; justify-content: space-between; align-items: center; font-weight: 800; font-size: 16px; color: #0f172a; background-color: #ffffff; border: none; cursor: pointer;">
+                    <span style="display: flex; align-items: center; gap: 12px;">
+                        <span style="width: 28px; height: 28px; border-radius: 8px; background-color: #f0fdfa; color: #028090; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 900;">3</span>
                         Quando devo levar o meu automóvel ligeiro de passageiros à inspeção?
                     </span>
-                    <i data-lucide="chevron-down" style="width:18px; height:18px; color:var(--slate-400); transition:transform 0.3s;"></i>
+                    <svg class="chevron-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="transition: transform 0.3s;"><polyline points="6 9 12 15 18 9"/></svg>
                 </button>
                 <div class="faq-answer-panel">
-                    <p style="margin-bottom:8px;">A periodicidade legal para automóveis ligeiros de passageiros particulares é a seguinte:</p>
-                    <ul style="padding-left:20px; font-weight:500;">
-                        <li style="margin-bottom:4px;"><strong>1.ª Inspeção:</strong> 4 anos após a data da primeira matrícula constante do livrete/DUA;</li>
-                        <li style="margin-bottom:4px;"><strong>Subsequentes:</strong> De 2 em 2 anos até perfazer os 8 anos de idade da viatura;</li>
+                    <p style="margin-bottom: 8px;">A periodicidade legal para automóveis ligeiros de passageiros particulares é a seguinte:</p>
+                    <ul style="padding-left: 20px; font-weight: 500;">
+                        <li style="margin-bottom: 4px;"><strong>1.ª Inspeção:</strong> 4 anos após a data da primeira matrícula constante do livrete/DUA;</li>
+                        <li style="margin-bottom: 4px;"><strong>Subsequentes:</strong> De 2 em 2 anos até perfazer os 8 anos de idade da viatura;</li>
                         <li><strong>A partir do 8.º ano:</strong> Anualmente.</li>
                     </ul>
-                    <div style="margin-top:12px; background-color:var(--amber-light); color:#78350f; padding:12px; border-radius:8px; font-size:12px; font-weight:600;">
+                    <div style="margin-top: 12px; background-color: #fef3c7; color: #78350f; padding: 12px; border-radius: 8px; font-size: 12px; font-weight: 600;">
                         💡 <strong>Nota Importante:</strong> A inspeção pode ser realizada nos 3 meses anteriores ao dia e mês da primeira matrícula sem alteração do dia limite base!
                     </div>
                 </div>
             </div>
 
             <!-- FAQ Item 4 -->
-            <div class="faq-item" data-category="prazos">
-                <button onclick="toggleFAQ(this)" class="faq-question-btn">
-                    <span style="display:flex; align-items:center; gap:12px;">
-                        <span style="width:28px; height:28px; border-radius:6px; background-color:var(--primary-light); color:var(--primary); display:inline-flex; align-items:center; justify-content:center; font-size:12px; font-weight:900;">4</span>
+            <div class="faq-item" data-category="prazos" style="background-color: #ffffff; border-radius: 16px; border: 1px solid #e2e8f0; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+                <button onclick="toggleFAQ(this)" style="width: 100%; padding: 20px 24px; text-align: left; display: flex; justify-content: space-between; align-items: center; font-weight: 800; font-size: 16px; color: #0f172a; background-color: #ffffff; border: none; cursor: pointer;">
+                    <span style="display: flex; align-items: center; gap: 12px;">
+                        <span style="width: 28px; height: 28px; border-radius: 8px; background-color: #f0fdfa; color: #028090; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 900;">4</span>
                         Quais são as consequências e multas por circular com a IPO caducada?
                     </span>
-                    <i data-lucide="chevron-down" style="width:18px; height:18px; color:var(--slate-400); transition:transform 0.3s;"></i>
+                    <svg class="chevron-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="transition: transform 0.3s;"><polyline points="6 9 12 15 18 9"/></svg>
                 </button>
                 <div class="faq-answer-panel">
                     <p>Circular na via pública sem ter a Inspeção Periódica Obrigatória em dia constitui uma contraordenação grave regulada pelo Código da Estrada. As coimas legais aplicáveis situam-se entre os <strong>250 € e os 1.250 €</strong>. Além disso, em caso de acidente rodoviário, as companhias de seguros podem recusar a cobertura de danos.</p>
@@ -1039,17 +424,17 @@
             </div>
 
             <!-- FAQ Item 5 -->
-            <div class="faq-item" data-category="processo">
-                <button onclick="toggleFAQ(this)" class="faq-question-btn">
-                    <span style="display:flex; align-items:center; gap:12px;">
-                        <span style="width:28px; height:28px; border-radius:6px; background-color:var(--primary-light); color:var(--primary); display:inline-flex; align-items:center; justify-content:center; font-size:12px; font-weight:900;">5</span>
+            <div class="faq-item" data-category="processo" style="background-color: #ffffff; border-radius: 16px; border: 1px solid #e2e8f0; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+                <button onclick="toggleFAQ(this)" style="width: 100%; padding: 20px 24px; text-align: left; display: flex; justify-content: space-between; align-items: center; font-weight: 800; font-size: 16px; color: #0f172a; background-color: #ffffff; border: none; cursor: pointer;">
+                    <span style="display: flex; align-items: center; gap: 12px;">
+                        <span style="width: 28px; height: 28px; border-radius: 8px; background-color: #f0fdfa; color: #028090; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 900;">5</span>
                         O que é verificado durante a inspeção no centro Cartifique Auto?
                     </span>
-                    <i data-lucide="chevron-down" style="width:18px; height:18px; color:var(--slate-400); transition:transform 0.3s;"></i>
+                    <svg class="chevron-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="transition: transform 0.3s;"><polyline points="6 9 12 15 18 9"/></svg>
                 </button>
                 <div class="faq-answer-panel">
-                    <p style="margin-bottom:8px;">A inspeção técnica analisa rigorosamente 8 vertentes fundamentais de segurança:</p>
-                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; font-size:12px; font-weight:600;">
+                    <p style="margin-bottom: 8px;">A inspeção técnica analisa rigorosamente 8 vertentes fundamentais de segurança:</p>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 12px; font-weight: 600; color: #334155;">
                         <div>✓ Identificação do veículo e matrícula</div>
                         <div>✓ Sistema de iluminação e sinalização</div>
                         <div>✓ Travões e eficiência de travagem</div>
@@ -1063,13 +448,13 @@
             </div>
 
             <!-- FAQ Item 6 -->
-            <div class="faq-item" data-category="processo">
-                <button onclick="toggleFAQ(this)" class="faq-question-btn">
-                    <span style="display:flex; align-items:center; gap:12px;">
-                        <span style="width:28px; height:28px; border-radius:6px; background-color:var(--primary-light); color:var(--primary); display:inline-flex; align-items:center; justify-content:center; font-size:12px; font-weight:900;">6</span>
+            <div class="faq-item" data-category="processo" style="background-color: #ffffff; border-radius: 16px; border: 1px solid #e2e8f0; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+                <button onclick="toggleFAQ(this)" style="width: 100%; padding: 20px 24px; text-align: left; display: flex; justify-content: space-between; align-items: center; font-weight: 800; font-size: 16px; color: #0f172a; background-color: #ffffff; border: none; cursor: pointer;">
+                    <span style="display: flex; align-items: center; gap: 12px;">
+                        <span style="width: 28px; height: 28px; border-radius: 8px; background-color: #f0fdfa; color: #028090; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 900;">6</span>
                         Posso acompanhar presencialmente a verificação do meu veículo?
                     </span>
-                    <i data-lucide="chevron-down" style="width:18px; height:18px; color:var(--slate-400); transition:transform 0.3s;"></i>
+                    <svg class="chevron-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="transition: transform 0.3s;"><polyline points="6 9 12 15 18 9"/></svg>
                 </button>
                 <div class="faq-answer-panel">
                     <p>Sim. Os clientes têm o direito de acompanhar visualmente as fases inspetivas da sua viatura nas zonas destinadas aos utentes em todos os centros <strong>Cartifique Auto</strong>, respeitando integralmente as orientações de segurança dadas pelos nossos inspetores técnicos.</p>
@@ -1077,38 +462,38 @@
             </div>
 
             <!-- FAQ Item 7 -->
-            <div class="faq-item" data-category="reprovacao">
-                <button onclick="toggleFAQ(this)" class="faq-question-btn">
-                    <span style="display:flex; align-items:center; gap:12px;">
-                        <span style="width:28px; height:28px; border-radius:6px; background-color:var(--primary-light); color:var(--primary); display:inline-flex; align-items:center; justify-content:center; font-size:12px; font-weight:900;">7</span>
+            <div class="faq-item" data-category="reprovacao" style="background-color: #ffffff; border-radius: 16px; border: 1px solid #e2e8f0; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+                <button onclick="toggleFAQ(this)" style="width: 100%; padding: 20px 24px; text-align: left; display: flex; justify-content: space-between; align-items: center; font-weight: 800; font-size: 16px; color: #0f172a; background-color: #ffffff; border: none; cursor: pointer;">
+                    <span style="display: flex; align-items: center; gap: 12px;">
+                        <span style="width: 28px; height: 28px; border-radius: 8px; background-color: #f0fdfa; color: #028090; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 900;">7</span>
                         O que acontece se o veículo for reprovado na inspeção?
                     </span>
-                    <i data-lucide="chevron-down" style="width:18px; height:18px; color:var(--slate-400); transition:transform 0.3s;"></i>
+                    <svg class="chevron-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="transition: transform 0.3s;"><polyline points="6 9 12 15 18 9"/></svg>
                 </button>
                 <div class="faq-answer-panel">
-                    <p style="margin-bottom:8px;">Caso a viatura reprove (deficiências de Tipo 2 ou superiores), dispõe de um <strong>prazo de 30 dias</strong> para efetuar as devidas reparações na oficina e submeter a viatura a uma <strong>Reinspeção</strong>.</p>
+                    <p style="margin-bottom: 8px;">Caso a viatura reprove (deficiências de Tipo 2 ou superiores), dispõe de um <strong>prazo de 30 dias</strong> para efetuar as devidas reparações na oficina e submeter a viatura a uma <strong>Reinspeção</strong>.</p>
                     <p>A reinspeção deve ser realizada <strong>obrigatoriamente no mesmo centro Cartifique Auto</strong> onde foi feita a inspeção inicial. Caso opte por mudar de centro de inspeção, terá legalmente de realizar e pagar uma nova inspeção completa.</p>
                 </div>
             </div>
 
             <!-- FAQ Item 8 -->
-            <div class="faq-item" data-category="reprovacao">
-                <button onclick="toggleFAQ(this)" class="faq-question-btn">
-                    <span style="display:flex; align-items:center; gap:12px;">
-                        <span style="width:28px; height:28px; border-radius:6px; background-color:var(--primary-light); color:var(--primary); display:inline-flex; align-items:center; justify-content:center; font-size:12px; font-weight:900;">8</span>
+            <div class="faq-item" data-category="reprovacao" style="background-color: #ffffff; border-radius: 16px; border: 1px solid #e2e8f0; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+                <button onclick="toggleFAQ(this)" style="width: 100%; padding: 20px 24px; text-align: left; display: flex; justify-content: space-between; align-items: center; font-weight: 800; font-size: 16px; color: #0f172a; background-color: #ffffff; border: none; cursor: pointer;">
+                    <span style="display: flex; align-items: center; gap: 12px;">
+                        <span style="width: 28px; height: 28px; border-radius: 8px; background-color: #f0fdfa; color: #028090; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 900;">8</span>
                         Qual a diferença entre deficiência Tipo 1, Tipo 2 e Tipo 3 (Muito Grave)?
                     </span>
-                    <i data-lucide="chevron-down" style="width:18px; height:18px; color:var(--slate-400); transition:transform 0.3s;"></i>
+                    <svg class="chevron-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="transition: transform 0.3s;"><polyline points="6 9 12 15 18 9"/></svg>
                 </button>
                 <div class="faq-answer-panel">
-                    <div style="display:flex; flex-direction:column; gap:8px;">
-                        <div style="background-color:var(--slate-50); padding:10px; border-radius:8px;">
+                    <div style="display: flex; flex-direction: column; gap: 8px;">
+                        <div style="background-color: #f8fafc; padding: 10px; border-radius: 8px;">
                             <strong>Tipo 1 (Deficiência Leve):</strong> Não afeta gravemente as condições de segurança. Permite aprovação desde que não acumule mais do que 8 deficiências deste tipo.
                         </div>
-                        <div style="background-color:var(--amber-light); color:#78350f; padding:10px; border-radius:8px;">
+                        <div style="background-color: #fef3c7; color: #78350f; padding: 10px; border-radius: 8px;">
                             <strong>Tipo 2 (Deficiência Grave):</strong> Afeta condições de funcionamento/segurança. Determina a reprovação do veículo, dando 30 dias para reparação e reinspeção.
                         </div>
-                        <div style="background-color:var(--red-light); color:var(--red); padding:10px; border-radius:8px;">
+                        <div style="background-color: #fee2e2; color: #dc2626; padding: 10px; border-radius: 8px;">
                             <strong>Tipo 3 (Deficiência Muito Grave):</strong> Perigo iminente para a segurança rodoviária. Imobiliza imediatamente o veículo, apenas sendo permitido o deslocamento de reboque.
                         </div>
                     </div>
@@ -1118,15 +503,15 @@
         </div>
 
         <!-- FAQ Support Callout -->
-        <div style="margin-top:48px; padding:32px; background-color:var(--white); border-radius:var(--radius-2xl); border:1px solid var(--slate-200); text-align:center;">
-            <h3 style="font-size:20px; font-weight:900; margin-bottom:6px;">Ainda tem dúvidas por esclarecer?</h3>
-            <p style="font-size:13px; color:var(--slate-500); margin-bottom:20px;">A nossa equipa de apoio ao cliente está disponível para ajudar por telefone ou e-mail.</p>
-            <div style="display:flex; justify-content:center; gap:12px; flex-wrap:wrap;">
-                <a href="tel:800200300" class="btn-cta">
-                    <i data-lucide="phone" style="width:16px; height:16px;"></i> Ligar 800 200 300
+        <div style="margin-top: 48px; padding: 32px; background-color: #ffffff; border-radius: 24px; border: 1px solid #e2e8f0; text-align: center;">
+            <h3 style="font-size: 20px; font-weight: 900; color: #0f172a; margin-bottom: 6px;">Ainda tem dúvidas por esclarecer?</h3>
+            <p style="font-size: 13px; color: #64748b; margin-bottom: 20px;">A nossa equipa de apoio ao cliente está disponível para ajudar por telefone ou e-mail.</p>
+            <div style="display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;">
+                <a href="tel:800200300" style="padding: 12px 22px; border-radius: 12px; background-color: #028090; color: #ffffff; font-weight: 800; font-size: 14px; text-decoration: none; display: inline-flex; align-items: center; gap: 8px;">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg> Ligar 800 200 300
                 </a>
-                <a href="mailto:apoiocliente@cartifiqueauto.pt" class="btn-hero-sub" style="color:var(--slate-700);">
-                    <i data-lucide="mail" style="width:16px; height:16px;"></i> Enviar Mensagem
+                <a href="mailto:apoiocliente@cartifiqueauto.pt" style="padding: 12px 22px; border-radius: 12px; background-color: #f1f5f9; color: #334155; font-weight: 800; font-size: 14px; border: 1px solid #cbd5e1; text-decoration: none; display: inline-flex; align-items: center; gap: 8px;">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg> Enviar Mensagem
                 </a>
             </div>
         </div>
@@ -1134,27 +519,28 @@
     </div>
 
     <!-- BOOKING WIZARD MODAL -->
-    <div id="booking-modal" class="modal-overlay hidden">
-        <div class="modal-card">
-            <div class="modal-header">
-                <div style="display:flex; align-items:center; gap:10px;">
-                    <div style="width:32px; height:32px; border-radius:8px; background-color:var(--primary); display:flex; align-items:center; justify-content:center; color:var(--white);">
-                        <i data-lucide="calendar" style="width:18px; height:18px;"></i>
+    <div id="booking-modal" class="modal-overlay hidden" style="position: fixed; inset: 0; z-index: 50; background-color: rgba(15, 23, 42, 0.75); display: flex; align-items: center; justify-content: center; padding: 16px;">
+        <div style="background-color: #ffffff; border-radius: 24px; width: 100%; max-width: 560px; overflow: hidden; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);">
+            <div style="background-color: #0f172a; color: #ffffff; padding: 20px 24px; display: flex; justify-content: space-between; align-items: center;">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <div style="width: 32px; height: 32px; border-radius: 8px; background-color: #028090; display: flex; align-items: center; justify-content: center; color: #ffffff;">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
                     </div>
                     <div>
-                        <h3 style="font-size:16px; font-weight:900;">Agendar Inspeção Técnica</h3>
-                        <p style="font-size:11px; color:var(--slate-400);">Cartifique Auto - Reserva de Vaga</p>
+                        <h3 style="font-size: 16px; font-weight: 900; color: #ffffff; margin: 0;">Agendar Inspeção Técnica</h3>
+                        <p style="font-size: 11px; color: #94a3b8; margin: 0;">Cartifique Auto - Reserva de Vaga</p>
                     </div>
                 </div>
-                <button onclick="closeBookingModal()" style="color:var(--slate-400);">
-                    <i data-lucide="x" style="width:20px; height:20px;"></i>
+                <button onclick="closeBookingModal()" style="color: #94a3b8; border: none; cursor: pointer; display: flex; align-items: center;">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
                 </button>
             </div>
 
-            <form onsubmit="submitBooking(event)" style="padding:24px; display:flex; flex-direction:column; gap:14px;">
+            <!-- Form View -->
+            <form id="booking-form" onsubmit="submitBooking(event)" style="padding: 24px; display: flex; flex-direction: column; gap: 14px;">
                 <div>
-                    <label class="form-label">Selecione o Centro</label>
-                    <select id="book-center" required class="form-select">
+                    <label style="display: block; font-size: 11px; font-weight: 800; color: #475569; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px;">Selecione o Centro</label>
+                    <select id="book-center" required style="width: 100%; background-color: #f8fafc; border: 1px solid #cbd5e1; border-radius: 12px; padding: 12px 14px; font-size: 14px; font-weight: 600; color: #0f172a; outline: none; box-sizing: border-box;">
                         <option value="loures">Centro Cartifique Auto - Loures</option>
                         <option value="lisboa">Centro Cartifique Auto - Lisboa Oriente</option>
                         <option value="porto">Centro Cartifique Auto - Porto Circunvalação</option>
@@ -1162,14 +548,14 @@
                     </select>
                 </div>
 
-                <div class="form-grid-2">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
                     <div>
-                        <label class="form-label">Matrícula</label>
-                        <input type="text" id="book-plate" required placeholder="AB-12-34" style="text-transform:uppercase; font-family:monospace; letter-spacing:0.1em;" class="form-input">
+                        <label style="display: block; font-size: 11px; font-weight: 800; color: #475569; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px;">Matrícula</label>
+                        <input type="text" id="book-plate" required placeholder="AB-12-34" value="AB-12-34" style="text-transform: uppercase; font-family: monospace; letter-spacing: 0.1em; width: 100%; background-color: #f8fafc; border: 1px solid #cbd5e1; border-radius: 12px; padding: 12px 14px; font-size: 14px; font-weight: 600; color: #0f172a; outline: none; box-sizing: border-box;">
                     </div>
                     <div>
-                        <label class="form-label">Tipo de Serviço</label>
-                        <select id="book-service" class="form-select">
+                        <label style="display: block; font-size: 11px; font-weight: 800; color: #475569; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px;">Tipo de Serviço</label>
+                        <select id="book-service" style="width: 100%; background-color: #f8fafc; border: 1px solid #cbd5e1; border-radius: 12px; padding: 12px 14px; font-size: 14px; font-weight: 600; color: #0f172a; outline: none; box-sizing: border-box;">
                             <option value="ipo">IPO Periódica Obrigatória</option>
                             <option value="reinspecao">Reinspeção (Tipo B)</option>
                             <option value="checkup">Check-up Pré-IPO</option>
@@ -1177,14 +563,14 @@
                     </div>
                 </div>
 
-                <div class="form-grid-2">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
                     <div>
-                        <label class="form-label">Data Desejada</label>
-                        <input type="date" required id="book-date" class="form-input">
+                        <label style="display: block; font-size: 11px; font-weight: 800; color: #475569; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px;">Data Desejada</label>
+                        <input type="date" required id="book-date" style="width: 100%; background-color: #f8fafc; border: 1px solid #cbd5e1; border-radius: 12px; padding: 12px 14px; font-size: 14px; font-weight: 600; color: #0f172a; outline: none; box-sizing: border-box;">
                     </div>
                     <div>
-                        <label class="form-label">Hora</label>
-                        <select id="book-time" class="form-select">
+                        <label style="display: block; font-size: 11px; font-weight: 800; color: #475569; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px;">Hora</label>
+                        <select id="book-time" style="width: 100%; background-color: #f8fafc; border: 1px solid #cbd5e1; border-radius: 12px; padding: 12px 14px; font-size: 14px; font-weight: 600; color: #0f172a; outline: none; box-sizing: border-box;">
                             <option>08:30</option>
                             <option>09:30</option>
                             <option>10:30</option>
@@ -1198,96 +584,108 @@
                 </div>
 
                 <div>
-                    <label class="form-label">Nome Completo do Condutor</label>
-                    <input type="text" required placeholder="Ex: Nuno Sarabando" class="form-input">
+                    <label style="display: block; font-size: 11px; font-weight: 800; color: #475569; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px;">Nome Completo do Condutor</label>
+                    <input type="text" required placeholder="Ex: Nuno Sarabando" value="Nuno Sarabando" style="width: 100%; background-color: #f8fafc; border: 1px solid #cbd5e1; border-radius: 12px; padding: 12px 14px; font-size: 14px; font-weight: 600; color: #0f172a; outline: none; box-sizing: border-box;">
                 </div>
 
-                <div class="form-grid-2">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
                     <div>
-                        <label class="form-label">Contacto Telefónico</label>
-                        <input type="tel" required placeholder="966 000 000" class="form-input">
+                        <label style="display: block; font-size: 11px; font-weight: 800; color: #475569; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px;">Contacto Telefónico</label>
+                        <input type="tel" required placeholder="966 865 588" value="966 865 588" style="width: 100%; background-color: #f8fafc; border: 1px solid #cbd5e1; border-radius: 12px; padding: 12px 14px; font-size: 14px; font-weight: 600; color: #0f172a; outline: none; box-sizing: border-box;">
                     </div>
                     <div>
-                        <label class="form-label">E-mail para Confirmação</label>
-                        <input type="email" required placeholder="exemplo@email.com" class="form-input">
+                        <label style="display: block; font-size: 11px; font-weight: 800; color: #475569; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px;">E-mail para Confirmação</label>
+                        <input type="email" required placeholder="nuno.sarabando@gmail.com" value="nuno.sarabando@gmail.com" style="width: 100%; background-color: #f8fafc; border: 1px solid #cbd5e1; border-radius: 12px; padding: 12px 14px; font-size: 14px; font-weight: 600; color: #0f172a; outline: none; box-sizing: border-box;">
                     </div>
                 </div>
 
-                <div style="display:flex; gap:12px; margin-top:12px;">
-                    <button type="button" onclick="closeBookingModal()" class="btn-hero-sub" style="flex:1; color:var(--slate-700); background-color:var(--slate-100); border-color:var(--slate-200);">
+                <div style="display: flex; gap: 12px; margin-top: 12px;">
+                    <button type="button" onclick="closeBookingModal()" style="flex: 1; padding: 12px; border-radius: 12px; background-color: #f1f5f9; color: #334155; font-weight: 700; border: 1px solid #cbd5e1; cursor: pointer;">
                         Cancelar
                     </button>
-                    <button type="submit" class="btn-cta" style="flex:2; justify-content:center; padding:12px;">
-                        <i data-lucide="check-circle" style="width:16px; height:16px;"></i> Confirmar Agendamento
+                    <button type="submit" style="flex: 2; padding: 12px; border-radius: 12px; background-color: #028090; color: #ffffff; font-weight: 800; font-size: 14px; display: flex; align-items: center; justify-content: center; gap: 8px; border: none; cursor: pointer;" class="btn-hover">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> Confirmar Agendamento
                     </button>
                 </div>
             </form>
+
+            <!-- Success Confirmation Screen (Inline instead of alert) -->
+            <div id="booking-success" class="hidden" style="padding: 36px 24px; text-align: center;">
+                <div style="width: 56px; height: 56px; border-radius: 16px; background-color: #dcfce7; color: #16a34a; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px;">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                </div>
+                <h3 style="font-size: 20px; font-weight: 900; color: #0f172a; margin-bottom: 6px;">Agendamento Confirmado!</h3>
+                <p id="booking-success-msg" style="font-size: 13px; color: #475569; margin-bottom: 24px; line-height: 1.6;"></p>
+                <button onclick="closeBookingModal()" style="padding: 12px 28px; border-radius: 12px; background-color: #0f172a; color: #ffffff; font-weight: 800; font-size: 14px; border: none; cursor: pointer;">
+                    Concluir
+                </button>
+            </div>
         </div>
     </div>
 
     <!-- FOOTER -->
-    <footer>
-        <div class="container">
-            <div class="footer-grid">
+    <footer style="background-color: #080d1a; color: #94a3b8; padding: 64px 0 32px; margin-top: auto; border-top: 1px solid #0f172a;">
+        <div style="width: 100%; max-width: 1280px; margin: 0 auto; padding: 0 20px;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 40px; margin-bottom: 48px;">
                 <div>
-                    <div style="display:flex; align-items:center; gap:8px; margin-bottom:12px;">
-                        <div class="logo-icon" style="width:32px; height:32px;">
-                            <i data-lucide="shield-check" style="width:18px; height:18px;"></i>
+                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+                        <div style="width: 32px; height: 32px; border-radius: 8px; background: linear-gradient(135deg, #028090 0%, #0f4c81 100%); display: flex; align-items: center; justify-content: center; color: #ffffff;">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
                         </div>
-                        <span style="font-size:18px; font-weight:900; color:var(--white);">Cartifique<span style="color:var(--primary);">Auto</span></span>
+                        <span style="font-size: 18px; font-weight: 900; color: #ffffff;">Cartifique<span style="color: #028090;">Auto</span></span>
                     </div>
-                    <p style="font-size:12px; leading-relaxed:1.5;">Rede nacional de Centros de Inspeção Técnica de Veículos devidamente autorizada e certificada pelo Instituto da Mobilidade e dos Transportes (IMT, I.P.).</p>
+                    <p style="font-size: 12px; line-height: 1.6; color: #94a3b8; margin: 0;">Rede nacional de Centros de Inspeção Técnica de Veículos devidamente autorizada e certificada pelo Instituto da Mobilidade e dos Transportes (IMT, I.P.).</p>
                 </div>
 
                 <div>
-                    <h4 style="font-size:13px; font-weight:900; color:var(--white); text-transform:uppercase; margin-bottom:12px;">Navegação Rápida</h4>
-                    <ul style="list-style:none; font-size:12px; display:flex; flex-direction:column; gap:6px;">
-                        <li><a href="#home" onclick="showView('home')">Início</a></li>
-                        <li><a href="#simulador" onclick="showView('home'); scrollToSection('simulador')">Simulador IPO</a></li>
-                        <li><a href="#faqs" onclick="showView('faqs')" style="color:#2dd4bf; font-weight:700;">Guia Completo de FAQs</a></li>
-                        <li><a href="#centros" onclick="showView('home'); scrollToSection('centros')">Rede de Centros</a></li>
+                    <h4 style="font-size: 13px; font-weight: 900; color: #ffffff; text-transform: uppercase; margin-bottom: 12px;">Navegação Rápida</h4>
+                    <ul style="list-style: none; font-size: 12px; display: flex; flex-direction: column; gap: 8px;">
+                        <li><a href="#home" onclick="showView('home')" style="color: #cbd5e1;">Início</a></li>
+                        <li><a href="#simulador" onclick="showView('home'); scrollToSection('simulador')" style="color: #cbd5e1;">Simulador IPO</a></li>
+                        <li><a href="#faqs" onclick="showView('faqs')" style="color: #2dd4bf; font-weight: 700;">Guia Completo de FAQs</a></li>
+                        <li><a href="#centros" onclick="showView('home'); scrollToSection('centros')" style="color: #cbd5e1;">Rede de Centros</a></li>
                     </ul>
                 </div>
 
                 <div>
-                    <h4 style="font-size:13px; font-weight:900; color:var(--white); text-transform:uppercase; margin-bottom:12px;">Apoio ao Cliente</h4>
-                    <ul style="list-style:none; font-size:12px; display:flex; flex-direction:column; gap:6px;">
-                        <li>Linha Direta: <strong style="color:var(--white);">800 200 300</strong></li>
+                    <h4 style="font-size: 13px; font-weight: 900; color: #ffffff; text-transform: uppercase; margin-bottom: 12px;">Apoio ao Cliente</h4>
+                    <ul style="list-style: none; font-size: 12px; display: flex; flex-direction: column; gap: 8px; color: #cbd5e1;">
+                        <li>Linha Direta: <strong style="color: #ffffff;">800 200 300</strong></li>
                         <li>Email: apoiocliente@cartifiqueauto.pt</li>
                         <li>Horário: Seg a Sáb das 08:00 às 20:00</li>
                     </ul>
                 </div>
 
                 <div>
-                    <h4 style="font-size:13px; font-weight:900; color:var(--white); text-transform:uppercase; margin-bottom:12px;">Garantia IMT</h4>
-                    <p style="font-size:12px; margin-bottom:12px;">Todas as inspeções cumprem os padrões legais de qualidade fixados por lei em Portugal.</p>
-                    <span style="padding:4px 8px; background-color:var(--slate-900); border:1px solid var(--slate-800); border-radius:4px; font-size:10px; font-weight:700; color:#2dd4bf;">
+                    <h4 style="font-size: 13px; font-weight: 900; color: #ffffff; text-transform: uppercase; margin-bottom: 12px;">Garantia IMT</h4>
+                    <p style="font-size: 12px; margin-bottom: 12px; color: #94a3b8;">Todas as inspeções cumprem os padrões legais de qualidade fixados por lei em Portugal.</p>
+                    <span style="padding: 4px 10px; background-color: #0f172a; border: 1px solid #1e293b; border-radius: 6px; font-size: 10px; font-weight: 700; color: #2dd4bf; display: inline-block;">
                         Entidade Aprovada IMT #8041
                     </span>
                 </div>
             </div>
 
-            <div style="padding-top:24px; border-top:1px solid var(--slate-900); font-size:12px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px;">
-                <p>&copy; 2026 Cartifique Auto. Todos os direitos reservados.</p>
-                <div style="display:flex; gap:16px;">
-                    <a href="#faqs" onclick="showView('faqs')" style="color:#2dd4bf; font-weight:700;">FAQs</a>
-                    <a href="#">Privacidade</a>
-                    <a href="#">Termos</a>
+            <div style="padding-top: 24px; border-top: 1px solid #0f172a; font-size: 12px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; color: #64748b;">
+                <p style="margin: 0;">&copy; 2026 Cartifique Auto. Todos os direitos reservados.</p>
+                <div style="display: flex; gap: 16px;">
+                    <a href="#faqs" onclick="showView('faqs')" style="color: #2dd4bf; font-weight: 700; text-decoration: none;">FAQs</a>
+                    <a href="#" style="color: #64748b; text-decoration: none;">Privacidade</a>
+                    <a href="#" style="color: #64748b; text-decoration: none;">Termos</a>
                 </div>
             </div>
         </div>
     </footer>
 
     <script>
-        // Inicializar ícones Lucide
-        if (typeof lucide !== 'undefined') {
-            lucide.createIcons();
+        // Set minimum booking date to today
+        const todayStr = new Date().toISOString().split('T')[0];
+        const dateInput = document.getElementById('book-date');
+        if (dateInput) {
+            dateInput.min = todayStr;
+            dateInput.value = todayStr;
         }
 
-        // Definir data mínima do agendamento para hoje
-        document.getElementById('book-date').min = new Date().toISOString().split('T')[0];
-
-        // Alternar entre Visualização Principal e Página de FAQs
+        // Toggle between Home View and Dedicated FAQs View
         function showView(viewName) {
             const homeView = document.getElementById('view-home');
             const faqsView = document.getElementById('view-faqs');
@@ -1300,10 +698,9 @@
                 faqsView.classList.add('hidden');
                 homeView.classList.remove('hidden');
             }
-            if (typeof lucide !== 'undefined') lucide.createIcons();
         }
 
-        // Scroll suave para secções
+        // Smooth scroll to element ID
         function scrollToSection(id) {
             setTimeout(() => {
                 const el = document.getElementById(id);
@@ -1311,7 +708,7 @@
             }, 100);
         }
 
-        // Simulador de Próxima IPO
+        // Calculator Logic for next IPO limit
         function calculateIPO(e) {
             e.preventDefault();
             const type = document.getElementById('sim-type').value;
@@ -1346,14 +743,14 @@
             resultBox.classList.remove('hidden');
         }
 
-        // Accordion das FAQs
+        // Accordion toggle
         function toggleFAQ(buttonEl) {
             const panel = buttonEl.nextElementSibling;
-            const icon = buttonEl.querySelector('[data-lucide="chevron-down"]');
+            const icon = buttonEl.querySelector('.chevron-icon');
             const isOpen = panel.classList.contains('open');
 
             document.querySelectorAll('.faq-answer-panel').forEach(p => p.classList.remove('open'));
-            document.querySelectorAll('[data-lucide="chevron-down"]').forEach(i => i.style.transform = 'rotate(0deg)');
+            document.querySelectorAll('.chevron-icon').forEach(i => i.style.transform = 'rotate(0deg)');
 
             if (!isOpen) {
                 panel.classList.add('open');
@@ -1361,7 +758,7 @@
             }
         }
 
-        // Filtrar FAQs por pesquisa
+        // Filter FAQs by search query
         function filterFAQs() {
             const query = document.getElementById('faq-search').value.toLowerCase();
             const items = document.querySelectorAll('.faq-item');
@@ -1372,13 +769,17 @@
             });
         }
 
-        // Filtrar FAQs por categoria
+        // Filter FAQs by category
         function filterCategory(cat) {
             document.querySelectorAll('.faq-cat-btn').forEach(btn => {
                 if (btn.dataset.cat === cat) {
-                    btn.classList.add('active');
+                    btn.style.backgroundColor = '#028090';
+                    btn.style.color = '#ffffff';
+                    btn.style.borderColor = '#028090';
                 } else {
-                    btn.classList.remove('active');
+                    btn.style.backgroundColor = '#ffffff';
+                    btn.style.color = '#475569';
+                    btn.style.borderColor = '#cbd5e1';
                 }
             });
 
@@ -1391,8 +792,10 @@
             });
         }
 
-        // Controlos do Modal de Agendamento
+        // Booking Modal Controls
         function openBookingModal() {
+            document.getElementById('booking-form').classList.remove('hidden');
+            document.getElementById('booking-success').classList.add('hidden');
             document.getElementById('booking-modal').classList.remove('hidden');
         }
 
@@ -1404,9 +807,15 @@
             e.preventDefault();
             const plate = document.getElementById('book-plate').value;
             const date = document.getElementById('book-date').value;
+            const time = document.getElementById('book-time').value;
 
-            alert(`Reserva efetuada com sucesso para a matrícula ${plate} no dia ${date}. Irá receber a confirmação por e-mail e SMS!`);
-            closeBookingModal();
+            document.getElementById('booking-form').classList.add('hidden');
+            const successBox = document.getElementById('booking-success');
+            const successMsg = document.getElementById('booking-success-msg');
+            
+            successMsg.innerHTML = `Reserva efetuada com sucesso para a matrícula <strong style="color:#028090;">${plate}</strong> no dia <strong>${date}</strong> às <strong>${time}</strong>.<br><br>Enviámos uma mensagem de confirmação para o seu e-mail e telemóvel.`;
+            
+            successBox.classList.remove('hidden');
         }
     </script>
 </body>
